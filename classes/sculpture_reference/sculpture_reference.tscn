@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b6q0fks7bmdxu"]
+
+[ext_resource type="Script" path="res://classes/sculpture_reference/sculpture_reference.gd" id="1_horah"]
+
+[node name="SculptureReference" type="Node"]
+script = ExtResource("1_horah")

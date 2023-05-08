@@ -35,6 +35,15 @@ func _ready():
 	regenerate_block(SubBlockID.GRAY)
 	_update_area_2d()
 
+	var ref = get_node("SculptureReference")
+	ref.init(ref.texture)
+	var used_pixels: Array[Vector2i] = ref.used_pixels
+	for x in size.x:
+		for y in size.y:
+			var pos: Vector2i = Vector2i(x, y)
+			if not pos in used_pixels:
+				set_sub_block(pos, SubBlockID.EMPTY, true)
+
 
 func _process(delta):
 	if _can_sculpt:
