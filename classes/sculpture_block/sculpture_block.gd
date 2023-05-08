@@ -21,6 +21,8 @@ var size: Vector2 = Vector2(8, 8)
 var cell_size: Vector2 = Vector2(16, 16)
 var selector_size: Vector2 = Vector2(16, 16)
 
+var grid_color: Color = Color(0.7, 0.7, 0.7)
+
 var _can_sculpt: bool = false
 
 @onready var tilemap = get_node("TileMap")
@@ -44,12 +46,18 @@ func _process(delta):
 			var mouse_pos: Vector2 = to_local(get_global_mouse_position())
 			var map_pos: Vector2i = tilemap.local_to_map(mouse_pos)
 			var fixed_map_pos: Vector2i = map_pos + Vector2i(size.x / 2.0, size.y)
-			set_sub_block(fixed_map_pos, SubBlockID.EMPTY)
+			set_sub_block(fixed_map_pos, SubBlockID.EMPTY, true)
 
 
-func set_sub_block(pos: Vector2i, id: SubBlockID):
+func _draw():
+	_update_visible_grid()
+
+
+func set_sub_block(pos: Vector2i, id: SubBlockID, update_draw: bool = false):
 	var atlas_coord: Vector2i = _SubBlockCoords[id]
 	tilemap.set_cell(0, pos, 0, atlas_coord)
+	if update_draw:
+		queue_redraw()
 
 
 func regenerate_block(id: SubBlockID):
@@ -64,6 +72,23 @@ func _update_area_2d():
 	var shape: RectangleShape2D = collision_shape.shape
 	shape.size = size * cell_size
 	area2d.position.y = -(size.y / 2.0) * cell_size.y
+
+
+func _update_visible_grid() -> void:
+	var used_cells: Array[Vector2i] = tilemap.get_used_cells(0)
+	var top_left_origin: Vector2 = tilemap.map_to_local(Vector2i.ZERO) + tilemap.position
+	top_left_origin += Vector2(cell_size.x, -cell_size.y) / 2.0
+	for cell in used_cells:
+		var start_pos: Vector2 = top_left_origin + Vector2(cell) * cell_size - Vector2(cell_size.x, 0)
+		var top_left: Vector2 = start_pos
+		var top_right: Vector2 = start_pos + Vector2(cell_size.x, 0)
+		var bottom_left: Vector2 = start_pos + Vector2(0, cell_size.y)
+		var bottom_right: Vector2 = start_pos + cell_size
+		draw_line(top_left, top_right, grid_color)
+		draw_line(bottom_left, bottom_right, grid_color)
+		draw_line(top_left, bottom_left, grid_color)
+		draw_line(top_right, bottom_right, grid_color)
+#		draw_line(start_pos, start_pos + cell_size * Vector2.LEFT, grid_color)
 
 
 func _on_area_2d_input_event(viewport, event, shape_idx):

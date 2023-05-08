@@ -4,11 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://cpk4jai40mx7v" path="res://assets/images/sculpture_tiles.png" id="2_4jhvt"]
 [ext_resource type="Shader" path="res://classes/sculpture_block/sculpture_block.gdshader" id="2_6w2pc"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8b80w"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fpkoo"]
 shader = ExtResource("2_6w2pc")
 shader_parameter/columns = 16.0
 shader_parameter/rows = 16.0
-shader_parameter/influence = 0.241
+shader_parameter/influence = 0.2
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fn35s"]
 texture = ExtResource("2_4jhvt")
@@ -26,10 +26,13 @@ sources/0 = SubResource("TileSetAtlasSource_fn35s")
 script = ExtResource("1_wkrdh")
 
 [node name="TileMap" type="TileMap" parent="."]
-material = SubResource("ShaderMaterial_8b80w")
+texture_filter = 1
+material = SubResource("ShaderMaterial_fpkoo")
 tile_set = SubResource("TileSet_kvrih")
 format = 2
 layer_0/tile_data = PackedInt32Array(-4, 131072, 0, -3, 131072, 0, -2, 131072, 0, -1, 131072, 0, -65536, 131072, 0, -65535, 131072, 0, -65534, 131072, 0, -65533, 131072, 0, -262141, 131072, 0, -262142, 131072, 0, -262143, 131072, 0, -262144, 131072, 0, -196609, 131072, 0, -196610, 131072, 0, -196611, 131072, 0, -131075, 131072, 0, -65539, 131072, 0, -65540, 131072, 0, -131076, 131072, 0, -196612, 131072, 0, -196607, 131072, 0, -196606, 131072, 0, -196605, 131072, 0, -131069, 131072, 0, -131070, 131072, 0, -131071, 131072, 0, -131072, 131072, 0, -65537, 131072, 0, -65538, 131072, 0, -131074, 131072, 0, -131073, 131072, 0, -196608, 131072, 0, -327677, 131072, 0, -393213, 131072, 0, -458749, 131072, 0, -458750, 131072, 0, -458751, 131072, 0, -393215, 131072, 0, -393216, 131072, 0, -327681, 131072, 0, -327682, 131072, 0, -327683, 131072, 0, -327684, 131072, 0, -262147, 131072, 0, -262146, 131072, 0, -262145, 131072, 0, -327680, 131072, 0, -327679, 131072, 0, -327678, 131072, 0, -393214, 131072, 0, -458752, 131072, 0, -393217, 131072, 0, -393218, 131072, 0, -393219, 131072, 0, -393220, 131072, 0, -262148, 131072, 0)
+
+[node name="Node2D" type="Node2D" parent="."]
 
 [node name="Area2D" type="Area2D" parent="."]
 
@@ -37,7 +40,7 @@ layer_0/tile_data = PackedInt32Array(-4, 131072, 0, -3, 131072, 0, -2, 131072, 0
 shape = SubResource("RectangleShape2D_iti8o")
 
 [node name="Selector" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 1, 0.235294)
+modulate = Color(1, 1, 1, 0.760784)
 texture = ExtResource("2_4jhvt")
 hframes = 8
 vframes = 2
