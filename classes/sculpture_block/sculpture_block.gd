@@ -35,14 +35,14 @@ func _ready():
 	regenerate_block(SubBlockID.GRAY)
 	_update_area_2d()
 
-	var ref = get_node("SculptureReference")
-	ref.init(ref.texture)
-	var used_pixels: Array[Vector2i] = ref.used_pixels
-	for x in size.x:
-		for y in size.y:
-			var pos: Vector2i = Vector2i(x, y)
-			if not pos in used_pixels:
-				set_sub_block(pos, SubBlockID.EMPTY, true)
+#	var ref = get_node("SculptureReference")
+#	ref.init(ref.texture)
+#	var used_pixels: Array[Vector2i] = ref.used_pixels
+#	for x in size.x:
+#		for y in size.y:
+#			var pos: Vector2i = Vector2i(x, y)
+#			if not pos in used_pixels:
+#				set_sub_block(pos, SubBlockID.EMPTY, true)
 
 
 func _process(delta):
@@ -77,6 +77,10 @@ func regenerate_block(id: SubBlockID):
 			set_sub_block(Vector2i(x, y), id)
 
 
+func get_used_pixels() -> Array[Vector2i]:
+	return (tilemap.get_used_cells(0))
+
+
 func _update_area_2d():
 	var shape: RectangleShape2D = collision_shape.shape
 	shape.size = size * cell_size
@@ -85,10 +89,17 @@ func _update_area_2d():
 
 func _update_visible_grid() -> void:
 	var used_cells: Array[Vector2i] = tilemap.get_used_cells(0)
-	var top_left_origin: Vector2 = tilemap.map_to_local(Vector2i.ZERO) + tilemap.position
-	top_left_origin += Vector2(cell_size.x, -cell_size.y) / 2.0
+	var top_left_origin: Vector2 = (
+			tilemap.map_to_local(Vector2i.ZERO)
+			+ tilemap.position
+			+ Vector2(cell_size.x, -cell_size.y) / 2.0
+		)
 	for cell in used_cells:
-		var start_pos: Vector2 = top_left_origin + Vector2(cell) * cell_size - Vector2(cell_size.x, 0)
+		var start_pos: Vector2 = (
+				top_left_origin
+				+ Vector2(cell) * cell_size
+				- Vector2(cell_size.x, 0)
+			)
 		var top_left: Vector2 = start_pos
 		var top_right: Vector2 = start_pos + Vector2(cell_size.x, 0)
 		var bottom_left: Vector2 = start_pos + Vector2(0, cell_size.y)

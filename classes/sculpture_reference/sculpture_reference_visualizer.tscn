@@ -1,0 +1,60 @@
+[gd_scene load_steps=10 format=3 uid="uid://bgixtm14e06q"]
+
+[ext_resource type="Texture2D" uid="uid://dvjhml00yo10e" path="res://assets/images/sculptures/8px/toy1.png" id="1_axm83"]
+[ext_resource type="Script" path="res://classes/sculpture_reference/sculpture_reference_visualizer.gd" id="1_cpwlm"]
+[ext_resource type="Shader" path="res://classes/sculpture_reference/outline_shader.gdshader" id="1_jgm28"]
+[ext_resource type="PackedScene" uid="uid://b6q0fks7bmdxu" path="res://classes/sculpture_reference/sculpture_reference.tscn" id="4_tpq22"]
+
+[sub_resource type="Gradient" id="Gradient_i4p0e"]
+colors = PackedColorArray(0, 0, 0, 1, 0.160629, 0.160629, 0.160629, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_pma4w"]
+noise_type = 5
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_x2dt8"]
+color_ramp = SubResource("Gradient_i4p0e")
+noise = SubResource("FastNoiseLite_pma4w")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2p7g1"]
+texture = SubResource("NoiseTexture2D_x2dt8")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ehs34"]
+shader = ExtResource("1_jgm28")
+shader_parameter/columns = 40.0
+shader_parameter/rows = 40.0
+shader_parameter/influence = 0.3
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_thickness = 0.153
+shader_parameter/blend_influence = 0.25
+
+[node name="SculptureReferenceVisualizer" type="Panel"]
+custom_minimum_size = Vector2(40, 40)
+offset_right = 40.0
+offset_bottom = 40.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_cpwlm")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_2p7g1")
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/PanelContainer"]
+texture_filter = 1
+material = SubResource("ShaderMaterial_ehs34")
+layout_mode = 2
+texture = ExtResource("1_axm83")
+
+[node name="SculptureReference" parent="." instance=ExtResource("4_tpq22")]

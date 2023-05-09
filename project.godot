@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="Go Godot Jam 4"
-run/main_scene="res://game/level_scene.tscn"
+run/main_scene="res://game/game.tscn"
 config/features=PackedStringArray("4.0", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Sculptures="*res://game/sculptures.gd"
 
 [input]
 
