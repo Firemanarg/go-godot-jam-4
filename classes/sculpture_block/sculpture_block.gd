@@ -17,7 +17,7 @@ const _SubBlockCoords = {
 	SubBlockID.WHITE: Vector2i(6, 0),
 }
 
-var size: Vector2 = Vector2(8, 8)
+var size: Vector2i = Vector2i(8, 8)
 var cell_size: Vector2 = Vector2(16, 16)
 var selector_size: Vector2 = Vector2(16, 16)
 
@@ -62,28 +62,44 @@ func _draw():
 	_update_visible_grid()
 
 
+func set_size(size: Vector2i):
+	self.size = size
+	_update_area_2d()
+	regenerate_block()
+
+
+func is_sub_block_empty(pos: Vector2i) -> bool:
+	var id: Vector2i = tilemap.get_cell_atlas_coords(0, pos)
+	return (id == _SubBlockCoords[SubBlockID.EMPTY])
+
+
 func set_sub_block(pos: Vector2i, id: SubBlockID, update_draw: bool = false):
 	var atlas_coord: Vector2i = _SubBlockCoords[id]
 	tilemap.set_cell(0, pos, 0, atlas_coord)
 	if update_draw:
-		queue_redraw()
+		update_visible_grid()
 
 
-func regenerate_block(id: SubBlockID):
+func regenerate_block(id: SubBlockID = SubBlockID.GRAY):
 	tilemap.position = -Vector2(size.x / 2.0, size.y) * cell_size
 	tilemap.clear()
 	for x in size.x:
 		for y in size.y:
 			set_sub_block(Vector2i(x, y), id)
+	update_visible_grid()
 
 
 func get_used_pixels() -> Array[Vector2i]:
 	return (tilemap.get_used_cells(0))
 
 
+func update_visible_grid() -> void:
+	queue_redraw()
+
+
 func _update_area_2d():
 	var shape: RectangleShape2D = collision_shape.shape
-	shape.size = size * cell_size
+	shape.size = Vector2(size) * cell_size
 	area2d.position.y = -(size.y / 2.0) * cell_size.y
 
 

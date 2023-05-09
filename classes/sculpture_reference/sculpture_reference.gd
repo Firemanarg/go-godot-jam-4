@@ -1,10 +1,13 @@
 extends Node
 
 
+var sculpture_name: String = ""
+var texture: Texture2D = null
+var time: float = 0.0
 var size: Vector2i = Vector2i(0, 0)
+
 var used_pixels: Array[Vector2i] = []
 
-var texture: Texture2D = preload("res://assets/images/sculptures/8px/toy1.png")
 
 
 func _ready():
@@ -15,13 +18,21 @@ func _process(delta):
 	pass
 
 
-func init(sculpture_data: Dictionary)
+func set_sculpture_data(data: Dictionary) -> void:
+	sculpture_name = data.get("name", "")
+	time = data.get("time", 0.0)
+	_set_texture(data.get("texture"))
 
 
-func set_texture(texture: Texture2D) -> void:
+func _set_texture(texture: Texture2D) -> void:
+	self.texture = texture
+	used_pixels = []
+	if not texture:
+		size = Vector2i(0, 0)
+		print("texture is null")
+		return
 	var image: Image = texture.get_image()
 	size = image.get_size()
-	used_pixels = []
 	for x in size.x:
 		for y in size.y:
 			var color: Color = image.get_pixel(x, y)
