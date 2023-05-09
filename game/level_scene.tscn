@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://cjj76ug1l47dr"]
+
+[ext_resource type="PackedScene" uid="uid://b47aog6buqfrv" path="res://classes/sculpture_block/sculpture_block.tscn" id="1_qysxg"]
+[ext_resource type="PackedScene" uid="uid://bgixtm14e06q" path="res://classes/sculpture_reference/sculpture_reference_visualizer.tscn" id="2_7hh0y"]
+
+[node name="LevelScene" type="Node2D"]
+
+[node name="SculptureBlock" parent="." instance=ExtResource("1_qysxg")]
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(0, -10, 0, 10)
+width = 2.0
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="Line2D2" type="Line2D" parent="."]
+points = PackedVector2Array(-15, 0, 15, 0)
+width = 2.0
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -129)
+zoom = Vector2(1.74, 1.74)
+
+[node name="SculptureReferenceVisualizer" parent="." instance=ExtResource("2_7hh0y")]
+offset_left = 227.0
+offset_top = -297.0
+offset_right = 297.0
+offset_bottom = -227.0
