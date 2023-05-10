@@ -1,6 +1,7 @@
 extends Node
 
 
+signal cinematic_started
 signal cinematic_finished
 
 @onready var actors = get_node("Actors")
@@ -19,6 +20,7 @@ func _process(delta):
 func play_cinematic() -> void:
 	camera.enabled = true
 	anim_player.play("start")
+	cinematic_started.emit()
 
 
 func _on_animation_player_animation_finished(anim_name):
