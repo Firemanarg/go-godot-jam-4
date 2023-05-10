@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://bucw5ee5yjnc0"]
+
+[ext_resource type="Script" path="res://cinematics/cinematic_template.gd" id="1_y1bg0"]
+
+[node name="CinematicTemplate" type="Node"]
+script = ExtResource("1_y1bg0")
+
+[node name="Actors" type="Node" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
