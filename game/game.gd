@@ -6,23 +6,64 @@ const UNMATCH_WEIGHT: Array[float] = [2.0, 3.0]
 const EMPTY: int = 0
 const NOT_EMPTY: int = 1
 
-@onready var sculpture_block = get_node("Level/SculptureBlock")
-@onready var sculpture_reference = get_node("Level/SculptureReference")
+var is_match_in_progress: bool = false
+var refs_list: Array[Dictionary] = []
+var curr_round: int = 0
+var curr_ref: Dictionary = {}
+var scores: Array = []
+
+@onready var sculpture = get_node("Level/Sculpture")
+@onready var sculpture_block = get_node("Level/Sculpture/SculptureBlock")
+@onready var sculpture_reference = get_node("Level/Sculpture/SculptureReference")
 @onready var reference_visualizer = get_node("CanvasLayer/MarginContainer/HBoxContainer/VBoxContainer/SculptureReferenceVisualizer")
-@onready var button_check = get_node("CanvasLayer/MarginContainer/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/ButtonCheck")
-@onready var label_percent = get_node("CanvasLayer/MarginContainer/HBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/LabelPercent")
+@onready var timer = get_node("Timer")
+@onready var label_timer = get_node("CanvasLayer/MarginContainer/VBoxContainer/LabelTimer")
 
 
 func _ready():
 	reference_visualizer.reference = sculpture_reference
+	begin_match({8: 2, 16: 1})
 
 
 func _process(delta):
-	pass
+	if is_match_in_progress:
+		_update_timer(timer.get_time_left())
 
 
 func _physics_process(delta):
 	pass
+
+
+func begin_match(refs_amount: Dictionary = {}) -> void:
+	refs_list = generate_references_list(refs_amount)
+	scores = []
+	begin_round()
+	is_match_in_progress = true
+
+
+func begin_round() -> void:
+	if curr_round >= refs_list.size():
+		return
+	curr_ref = refs_list[curr_round]
+	timer.start(curr_ref.get("time", 0.0))
+	_change_sculpture(curr_ref)
+	sculpture_block.enable_edition()
+
+
+func generate_references_list(amounts: Dictionary = {}) -> Array[Dictionary]:
+	if amounts.is_empty():
+		return ([])
+	var refs_list: Array[Dictionary] = []
+	for size in amounts.keys():
+		if not size in [8, 16, 24]:
+			continue
+		var count: int = amounts.get(size, 0)
+		if not count == 0:
+			var shuffled_indexes: Array = range(len(Sculptures.SCULPTURES[str(size) + "px"]))
+			shuffled_indexes.shuffle()
+			for index in shuffled_indexes:
+				refs_list.append(Sculptures.get_sculpture_data(size, index))
+	return (refs_list)
 
 
 func get_sculpture_match_percent() -> float:
@@ -80,29 +121,20 @@ func get_sculpture_match_percent() -> float:
 func _change_sculpture(sculpture_data: Dictionary) -> void:
 	sculpture_reference.set_sculpture_data(sculpture_data)
 	reference_visualizer.update()
-
-
-func _on_button_check_pressed():
-	var match_percent: float = round(get_sculpture_match_percent() * 100)
-	label_percent.text = str(match_percent) + "%"
-
-
-func _on_button_smile_pressed():
-	var data: Dictionary = Sculptures.get_sculpture_data(8, 0)
-	_change_sculpture(data)
 	sculpture_block.set_size(sculpture_reference.size)
-	print("Setting sculpture to ", data["name"])
+	sculpture.position.y = (sculpture_block.size.y / 2) * sculpture_block.cell_size.y
 
 
-func _on_button_toy_1_pressed():
-	var data: Dictionary = Sculptures.get_sculpture_data(8, 1)
-	_change_sculpture(data)
-	sculpture_block.set_size(sculpture_reference.size)
-	print("Setting sculpture to ", data["name"])
+func _update_timer(time: float = 0.0) -> void:
+	var seconds: int = fmod(time, 60.0)
+	var minutes: int = int(time / 60.0) % 60
+	label_timer.text = "%02d:%02d" % [minutes, seconds]
 
 
-func _on_button_skull_pressed():
-	var data: Dictionary = Sculptures.get_sculpture_data(16, 0)
-	_change_sculpture(data)
-	sculpture_block.set_size(sculpture_reference.size)
-	print("Setting sculpture to ", data["name"])
+func _on_timer_timeout():
+	var score: int = get_sculpture_match_percent() * 10000
+	scores.append(score)
+	curr_round += 1
+	sculpture_block.enable_edition(false)
+	begin_round()
+	pass
