@@ -1,6 +1,11 @@
 extends Node
 
 
+const MATCH_WEIGHT: Array[float] = [1.0, 3.0]
+const UNMATCH_WEIGHT: Array[float] = [2.0, 3.0]
+const EMPTY: int = 0
+const NOT_EMPTY: int = 1
+
 @onready var sculpture_block = get_node("Level/SculptureBlock")
 @onready var sculpture_reference = get_node("Level/SculptureReference")
 @onready var reference_visualizer = get_node("CanvasLayer/MarginContainer/HBoxContainer/VBoxContainer/SculptureReferenceVisualizer")
@@ -20,33 +25,7 @@ func _physics_process(delta):
 	pass
 
 
-#func get_sculpture_match_percent() -> float:
-#	var size: Vector2i = sculpture_reference.size
-#	var original_pixels: Array[Vector2i] = sculpture_reference.used_pixels
-#	var copy_pixels: Array[Vector2i] = sculpture_block.get_used_pixels()
-#	var match_count: int = 0
-#	var unmatch_count: int = 0
-#	for x in size.x:
-#		for y in size.y:
-#			var pos: Vector2i = Vector2i(x, y)
-#			if (
-#				(pos in original_pixels and pos in copy_pixels)
-#				or (not pos in original_pixels and not pos in copy_pixels)
-#				):
-#				match_count += 1
-#			else:
-#				unmatch_count += 1
-#	var percent: float = float(match_count - unmatch_count) / (size.x * size.y)
-#	percent = clamp(percent, 0.0, 1.0)
-#	print("percent: ", percent)
-#	return (percent)
-
-func get_sculpture_match_percent() -> float: # Aplicar pesos, para que os blocos não quebrados tenham mais valor do que os quebrados
-	const MATCH_WEIGHT: Array[float] = [1.0, 3.0]
-	const UNMATCH_WEIGHT: Array[float] = [2.0, 3.0]
-	const EMPTY: int = 0
-	const NOT_EMPTY: int = 1
-
+func get_sculpture_match_percent() -> float:
 	var size: Vector2i = sculpture_reference.size
 	var max_size: int = size.x * size.y
 	var original_pixels: Array[Vector2i] = sculpture_reference.used_pixels
