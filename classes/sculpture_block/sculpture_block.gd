@@ -17,12 +17,13 @@ const _SubBlockCoords = {
 	SubBlockID.WHITE: Vector2i(6, 0),
 }
 
-var size: Vector2i = Vector2i(8, 8)
+var size: Vector2i = Vector2i(8, 8) : set = set_size
 var cell_size: Vector2 = Vector2(16, 16)
 var selector_size: Vector2 = Vector2(16, 16)
 
 var grid_color: Color = Color(0.7, 0.7, 0.7)
 
+var _enable_edition: bool = true
 var _can_sculpt: bool = false
 
 @onready var tilemap = get_node("TileMap")
@@ -46,7 +47,7 @@ func _ready():
 
 
 func _process(delta):
-	if _can_sculpt:
+	if _enable_edition and _can_sculpt:
 		var is_mouse_pressed: bool = (
 				Input.is_action_pressed("mouse_button_left")
 				or Input.is_action_just_pressed("mouse_button_left")
@@ -55,15 +56,11 @@ func _process(delta):
 			var mouse_pos: Vector2 = to_local(get_global_mouse_position())
 			var map_pos: Vector2i = tilemap.local_to_map(mouse_pos)
 			var fixed_map_pos: Vector2i = map_pos + Vector2i(size.x / 2.0, size.y)
-			set_sub_block(fixed_map_pos, SubBlockID.EMPTY, true)
+			set_sub_block(fixed_map_pos, SubBlockID.EMPTY)
 
 
-func _draw():
-	_update_visible_grid()
-
-
-func set_size(size: Vector2i):
-	self.size = size
+func set_size(new_size: Vector2i):
+	size = new_size
 	_update_area_2d()
 	regenerate_block()
 
@@ -73,11 +70,9 @@ func is_sub_block_empty(pos: Vector2i) -> bool:
 	return (id == _SubBlockCoords[SubBlockID.EMPTY])
 
 
-func set_sub_block(pos: Vector2i, id: SubBlockID, update_draw: bool = false):
+func set_sub_block(pos: Vector2i, id: SubBlockID):
 	var atlas_coord: Vector2i = _SubBlockCoords[id]
 	tilemap.set_cell(0, pos, 0, atlas_coord)
-	if update_draw:
-		update_visible_grid()
 
 
 func regenerate_block(id: SubBlockID = SubBlockID.GRAY):
@@ -86,15 +81,16 @@ func regenerate_block(id: SubBlockID = SubBlockID.GRAY):
 	for x in size.x:
 		for y in size.y:
 			set_sub_block(Vector2i(x, y), id)
-	update_visible_grid()
 
 
 func get_used_pixels() -> Array[Vector2i]:
 	return (tilemap.get_used_cells(0))
 
 
-func update_visible_grid() -> void:
-	queue_redraw()
+func enable_edition(is_enabled: bool = true):
+	_enable_edition = is_enabled
+	if not _enable_edition:
+		selector.visible = false
 
 
 func _update_area_2d():
@@ -104,37 +100,18 @@ func _update_area_2d():
 
 
 func _update_visible_grid() -> void:
-	var used_cells: Array[Vector2i] = tilemap.get_used_cells(0)
-	var top_left_origin: Vector2 = (
-			tilemap.map_to_local(Vector2i.ZERO)
-			+ tilemap.position
-			+ Vector2(cell_size.x, -cell_size.y) / 2.0
-		)
-	for cell in used_cells:
-		var start_pos: Vector2 = (
-				top_left_origin
-				+ Vector2(cell) * cell_size
-				- Vector2(cell_size.x, 0)
-			)
-		var top_left: Vector2 = start_pos
-		var top_right: Vector2 = start_pos + Vector2(cell_size.x, 0)
-		var bottom_left: Vector2 = start_pos + Vector2(0, cell_size.y)
-		var bottom_right: Vector2 = start_pos + cell_size
-		draw_line(top_left, top_right, grid_color)
-		draw_line(bottom_left, bottom_right, grid_color)
-		draw_line(top_left, bottom_left, grid_color)
-		draw_line(top_right, bottom_right, grid_color)
-#		draw_line(start_pos, start_pos + cell_size * Vector2.LEFT, grid_color)
+	pass
 
 
 func _on_area_2d_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseMotion:
-		var mouse_pos: Vector2 = to_local(get_global_mouse_position())
-		var map_pos: Vector2i = tilemap.local_to_map(mouse_pos)
-		var fixed_map_pos: Vector2i = map_pos + Vector2i(size.x / 2.0, size.y)
-		selector.visible = true
-		selector.position = (Vector2(map_pos) * cell_size) + (selector_size / 2.0)
-		_can_sculpt = true
+		if _enable_edition:
+			var mouse_pos: Vector2 = to_local(get_global_mouse_position())
+			var map_pos: Vector2i = tilemap.local_to_map(mouse_pos)
+			var fixed_map_pos: Vector2i = map_pos + Vector2i(size.x / 2.0, size.y)
+			selector.visible = true
+			selector.position = (Vector2(map_pos) * cell_size) + (selector_size / 2.0)
+			_can_sculpt = true
 
 
 func _on_area_2d_mouse_exited():
