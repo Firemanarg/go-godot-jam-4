@@ -785,9 +785,8 @@ texture = ExtResource("6_tdc2v")
 
 [node name="MainCharacter" type="Sprite2D" parent="Actors" index="3"]
 visible = false
-position = Vector2(930, 305)
-rotation = -0.10472
-scale = Vector2(0.2, 0.2)
+position = Vector2(274, 443)
+scale = Vector2(-0.2, 0.2)
 texture = ExtResource("3_ajdnn")
 
 [node name="Camera2D" parent="." index="2"]
