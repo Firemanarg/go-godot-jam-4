@@ -5,6 +5,8 @@
 [node name="CinematicTemplate" type="Node"]
 script = ExtResource("1_y1bg0")
 
+[node name="Backgrounds" type="Node" parent="."]
+
 [node name="Actors" type="Node" parent="."]
 
 [node name="Camera2D" type="Camera2D" parent="."]
