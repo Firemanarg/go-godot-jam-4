@@ -1,9 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://bgixtm14e06q"]
+[gd_scene load_steps=9 format=3 uid="uid://bgixtm14e06q"]
 
 [ext_resource type="Texture2D" uid="uid://dvjhml00yo10e" path="res://assets/images/sculptures/8px/toy1.png" id="1_axm83"]
 [ext_resource type="Script" path="res://classes/sculpture_reference/sculpture_reference_visualizer.gd" id="1_cpwlm"]
 [ext_resource type="Shader" path="res://classes/sculpture_reference/outline_shader.gdshader" id="1_jgm28"]
-[ext_resource type="PackedScene" uid="uid://b6q0fks7bmdxu" path="res://classes/sculpture_reference/sculpture_reference.tscn" id="4_tpq22"]
 
 [sub_resource type="Gradient" id="Gradient_i4p0e"]
 colors = PackedColorArray(0, 0, 0, 1, 0.160629, 0.160629, 0.160629, 1)
@@ -56,5 +55,3 @@ texture_filter = 1
 material = SubResource("ShaderMaterial_ehs34")
 layout_mode = 2
 texture = ExtResource("1_axm83")
-
-[node name="SculptureReference" parent="." instance=ExtResource("4_tpq22")]
