@@ -73,21 +73,6 @@ void fragment()
 	vec4 texture_output = texture_shader(SCREEN_UV, COLOR);
 	vec4 outline_output = outline_shader(TEXTURE_PIXEL_SIZE, TEXTURE, UV);
 	COLOR = mix(texture_output, outline_output, blend_influence);
+	if (COLOR.a > 0.0)
+		COLOR.a = 1.0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
