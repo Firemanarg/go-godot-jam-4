@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://bk3px2qq0wr5l"]
+
+[ext_resource type="Script" path="res://dialogs/dialog_template.gd" id="1_dg645"]
+
+[node name="DialogTemplate" type="Node"]
+script = ExtResource("1_dg645")
+
+[node name="Backgrounds" type="Node" parent="."]
+
+[node name="Actors" type="Node" parent="."]
+
+[node name="TextLayer" type="CanvasLayer" parent="."]
