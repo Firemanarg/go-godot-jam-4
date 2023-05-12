@@ -5,6 +5,7 @@ const MATCH_WEIGHT: Array[float] = [1.0, 3.0]
 const UNMATCH_WEIGHT: Array[float] = [2.0, 3.0]
 const EMPTY: int = 0
 const NOT_EMPTY: int = 1
+const INTRO_CINEMATIC_PRELOAD = preload("res://cinematics/intro_cinematic.tscn")
 
 var is_match_in_progress: bool = false
 var refs_list: Array[Dictionary] = []
@@ -12,17 +13,24 @@ var curr_round: int = 0
 var curr_ref: Dictionary = {}
 var scores: Array = []
 
+var current_cinematic = null
+
 @onready var sculpture = get_node("Level/Sculpture")
 @onready var sculpture_block = get_node("Level/Sculpture/SculptureBlock")
 @onready var sculpture_reference = get_node("Level/Sculpture/SculptureReference")
 @onready var reference_visualizer = get_node("CanvasLayer/MarginContainer/HBoxContainer/VBoxContainer/SculptureReferenceVisualizer")
 @onready var timer = get_node("Timer")
 @onready var label_timer = get_node("CanvasLayer/MarginContainer/VBoxContainer/LabelTimer")
+@onready var cinematic_layer = get_node("CinematicLayer")
 
 
 func _ready():
-	reference_visualizer.reference = sculpture_reference
-	begin_match({8: 2, 16: 1})
+	current_cinematic = INTRO_CINEMATIC_PRELOAD.instantiate()
+	cinematic_layer.add_child(current_cinematic)
+	current_cinematic.play_cinematic()
+#	reference_visualizer.reference = sculpture_reference
+#	begin_match({8: 2, 16: 1})
+#	print(Vector2(10, 8).normalized())
 
 
 func _process(delta):
