@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bh4724plcerq"
-path="res://.godot/imported/statue.png-1480e0fb60d25a69b516f3481362aeaa.ctex"
+path="res://.godot/imported/liberty.png-3bb04278e46c38372bd754797a0df714.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/sculptures/24px/statue.png"
-dest_files=["res://.godot/imported/statue.png-1480e0fb60d25a69b516f3481362aeaa.ctex"]
+source_file="res://assets/images/sculptures/24px/liberty.png"
+dest_files=["res://.godot/imported/liberty.png-3bb04278e46c38372bd754797a0df714.ctex"]
 
 [params]
 
