@@ -161,17 +161,17 @@ func skip(full_skip: bool = false) -> void:
 		finished.emit()
 		return
 	if _tween_in_progress:
+		_curr_dialog_index += 1
 		_curr_tween.kill()
-		_tween_in_progress = false
 		var label = label_text[_dialog_side]
 		label.visible_ratio = 1.0
 		label_continue[Side.LEFT].visible = true
 		label_continue[Side.RIGHT].visible = true
+		_tween_in_progress = false
 	else:
 		if _curr_dialog_index == dialogs.size():
 			finished.emit()
 		else:
-			_curr_dialog_index += 1
 			play_curr_dialog()
 
 
