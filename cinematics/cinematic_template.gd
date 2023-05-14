@@ -1,8 +1,9 @@
 extends Node
+class_name Cinematic
 
 
-signal cinematic_started
-signal cinematic_finished
+signal started
+signal finished
 
 @export var animations_names_list: PackedStringArray = PackedStringArray()
 
@@ -21,18 +22,21 @@ func _process(delta):
 	pass
 
 
-func play_cinematic() -> void:
+func play() -> void:
 	if not animations_names_list.is_empty():
 		camera.enabled = true
 		anim_player.play(animations_names_list[0])
 		curr_index = 0
-		cinematic_started.emit()
+		started.emit()
 
+
+func skip() -> void:
+	finished.emit()
 
 func _on_animation_player_animation_finished(anim_name):
 	if curr_index == animations_names_list.size() - 1:
 		curr_index = 0
-		cinematic_finished.emit()
+		finished.emit()
 	else:
 		curr_index += 1
 		anim_player.play(animations_names_list[curr_index])
