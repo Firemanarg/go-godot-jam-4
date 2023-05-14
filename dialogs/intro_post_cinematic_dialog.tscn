@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://b61bhdagujnus"]
+[gd_scene load_steps=33 format=3 uid="uid://b61bhdagujnus"]
 
 [ext_resource type="PackedScene" uid="uid://bk3px2qq0wr5l" path="res://dialogs/dialog_template.tscn" id="1_gr2yc"]
 [ext_resource type="Texture2D" uid="uid://bqhko2tkx4ru7" path="res://assets/images/background/museum_background.png" id="2_i30va"]
@@ -9,7 +9,15 @@
 [ext_resource type="Shader" path="res://classes/sculpture_reference/outline_shader.gdshader" id="9_sriwk"]
 [ext_resource type="Texture2D" uid="uid://c1klekw7prk2d" path="res://assets/images/sprites/sculpture_remains/sculpture_remains_03.png" id="10_tku1c"]
 [ext_resource type="Texture2D" uid="uid://l1nr4pcv62ek" path="res://assets/images/sprites/sculpture_remains/sculpture_remains_04.png" id="11_7saw8"]
+[ext_resource type="Texture2D" uid="uid://blgrod2kpd4fa" path="res://assets/images/sprites/main_character/parts/main_character_faceless.png" id="11_px8o0"]
 [ext_resource type="Texture2D" uid="uid://bsqm77scpwn4v" path="res://assets/images/sprites/sculpture_remains/sculpture_remains_06.png" id="12_4xewi"]
+[ext_resource type="Texture2D" uid="uid://5nhh8qt4iskq" path="res://assets/images/sprites/main_character/parts/main_character_mouth_scaried.png" id="12_x7ocw"]
+[ext_resource type="Texture2D" uid="uid://cl8nfbps6b6bt" path="res://assets/images/sprites/main_character/parts/main_character_eyes_big_scaried.png" id="13_v05nl"]
+[ext_resource type="Texture2D" uid="uid://c22sujk66i3l" path="res://assets/images/sprites/main_character/parts/main_character_eyebrows_scaried.png" id="14_eqyj4"]
+[ext_resource type="Texture2D" uid="uid://bjh66e7dlekxo" path="res://assets/images/sprites/main_character/parts/main_character_mouth_small_neutral.png" id="15_2q3qg"]
+[ext_resource type="Texture2D" uid="uid://x0ihl8jtt6mu" path="res://assets/images/sprites/main_character/parts/main_character_eyes_closed.png" id="16_7komq"]
+[ext_resource type="Texture2D" uid="uid://cajsh5bvhxd44" path="res://assets/images/sprites/main_character/parts/main_character_eyes_regular.png" id="17_vn8l2"]
+[ext_resource type="Texture2D" uid="uid://bg6fhb0f54wl5" path="res://assets/images/sprites/main_character/parts/main_character_eyebrows_regular.png" id="18_ogv0m"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cq0g4"]
 shader = ExtResource("7_17cjt")
@@ -53,9 +61,284 @@ shader_parameter/color = Color(0.796078, 0.403922, 0.152941, 1)
 shader = ExtResource("7_17cjt")
 shader_parameter/color = Color(0.596078, 0.160784, 0.137255, 1)
 
-[node name="IntroPostCinematicDialog" instance=ExtResource("1_gr2yc")]
+[sub_resource type="Animation" id="Animation_ojcmh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mouth:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("12_x7ocw")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Eyes:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("13_v05nl")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Eyebrows:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("14_eqyj4")]
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
 
-[node name="Part1" type="Control" parent="Backgrounds" index="0"]
+[sub_resource type="Animation" id="Animation_ocxmx"]
+resource_name = "thinking"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mouth:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("15_2q3qg")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Eyes:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("16_7komq")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Eyebrows:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("18_ogv0m")]
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_0x741"]
+resource_name = "scaried_shaking"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mouth:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("12_x7ocw")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Eyes:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("13_v05nl")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Eyebrows:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("14_eqyj4")]
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, -0.0349066, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.1)
+}
+
+[sub_resource type="Animation" id="Animation_4a4bx"]
+resource_name = "scaried"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mouth:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("12_x7ocw")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Eyes:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("13_v05nl")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Eyebrows:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("14_eqyj4")]
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_rs82g"]
+resource_name = "neutral"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mouth:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("15_2q3qg")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Eyes:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("17_vn8l2")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Eyebrows:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("18_ogv0m")]
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3mjqv"]
+_data = {
+"RESET": SubResource("Animation_ojcmh"),
+"neutral": SubResource("Animation_rs82g"),
+"scaried": SubResource("Animation_4a4bx"),
+"scaried_shaking": SubResource("Animation_0x741"),
+"thinking": SubResource("Animation_ocxmx")
+}
+
+[node name="IntroPostCinematicDialog" instance=ExtResource("1_gr2yc")]
+dialogs = Array[Dictionary]([{
+"actors_animations": {
+"MainCharacter": "scaried"
+},
+"side": 1,
+"text": "Oh no! The museum is entirely wrecked...",
+"visible_actors": PackedStringArray("MainCharacter")
+}])
+
+[node name="DestroyedMuseum" type="Control" parent="Backgrounds" index="0"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -63,7 +346,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MuseumBackground" type="TextureRect" parent="Backgrounds/Part1" index="0"]
+[node name="MuseumBackground" type="TextureRect" parent="Backgrounds/DestroyedMuseum" index="0"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -77,199 +360,199 @@ texture = ExtResource("2_i30va")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="Part5" type="Node2D" parent="Backgrounds/Part1" index="1"]
+[node name="Part5" type="Node2D" parent="Backgrounds/DestroyedMuseum" index="1"]
 y_sort_enabled = true
 
-[node name="Pedestals" type="Node2D" parent="Backgrounds/Part1/Part5" index="0"]
+[node name="Pedestals" type="Node2D" parent="Backgrounds/DestroyedMuseum/Part5" index="0"]
 y_sort_enabled = true
 position = Vector2(-410, 0)
 
-[node name="Pedestal" type="Sprite2D" parent="Backgrounds/Part1/Part5/Pedestals" index="0"]
+[node name="Pedestal" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Pedestals" index="0"]
 position = Vector2(779, 326)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("3_kaku1")
 offset = Vector2(0, -40)
 metadata/_edit_lock_ = true
 
-[node name="Pedestal2" type="Sprite2D" parent="Backgrounds/Part1/Part5/Pedestals" index="1"]
+[node name="Pedestal2" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Pedestals" index="1"]
 position = Vector2(1170, 410)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("3_kaku1")
 offset = Vector2(0, -40)
 metadata/_edit_lock_ = true
 
-[node name="Pedestal3" type="Sprite2D" parent="Backgrounds/Part1/Part5/Pedestals" index="2"]
+[node name="Pedestal3" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Pedestals" index="2"]
 position = Vector2(1489, 410)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("3_kaku1")
 offset = Vector2(0, -40)
 metadata/_edit_lock_ = true
 
-[node name="Pedestal4" type="Sprite2D" parent="Backgrounds/Part1/Part5/Pedestals" index="3"]
+[node name="Pedestal4" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Pedestals" index="3"]
 position = Vector2(391, 410)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("3_kaku1")
 offset = Vector2(0, -40)
 metadata/_edit_lock_ = true
 
-[node name="Pedestal5" type="Sprite2D" parent="Backgrounds/Part1/Part5/Pedestals" index="4"]
+[node name="Pedestal5" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Pedestals" index="4"]
 position = Vector2(72, 410)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("3_kaku1")
 offset = Vector2(0, -40)
 metadata/_edit_lock_ = true
 
-[node name="Tables" type="Node2D" parent="Backgrounds/Part1/Part5" index="1"]
+[node name="Tables" type="Node2D" parent="Backgrounds/DestroyedMuseum/Part5" index="1"]
 y_sort_enabled = true
 position = Vector2(-410, 0)
 
-[node name="Table2" type="Sprite2D" parent="Backgrounds/Part1/Part5/Tables" index="0"]
+[node name="Table2" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Tables" index="0"]
 position = Vector2(165, 558)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_6tedb")
 offset = Vector2(0, -105)
 metadata/_edit_lock_ = true
 
-[node name="Table4" type="Sprite2D" parent="Backgrounds/Part1/Part5/Tables" index="1"]
+[node name="Table4" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Tables" index="1"]
 position = Vector2(1393, 558)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_6tedb")
 offset = Vector2(0, -105)
 metadata/_edit_lock_ = true
 
-[node name="Table3" type="Sprite2D" parent="Backgrounds/Part1/Part5/Tables" index="2"]
+[node name="Table3" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Tables" index="2"]
 position = Vector2(641, 485)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("6_6tedb")
 offset = Vector2(0, -105)
 metadata/_edit_lock_ = true
 
-[node name="Table6" type="Sprite2D" parent="Backgrounds/Part1/Part5/Tables" index="3"]
+[node name="Table6" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Tables" index="3"]
 position = Vector2(917, 485)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("6_6tedb")
 offset = Vector2(0, -105)
 metadata/_edit_lock_ = true
 
-[node name="Table5" type="Sprite2D" parent="Backgrounds/Part1/Part5/Tables" index="4"]
+[node name="Table5" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Tables" index="4"]
 position = Vector2(1120, 688)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_6tedb")
 offset = Vector2(0, -105)
 metadata/_edit_lock_ = true
 
-[node name="Table7" type="Sprite2D" parent="Backgrounds/Part1/Part5/Tables" index="5"]
+[node name="Table7" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Tables" index="5"]
 position = Vector2(438, 688)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_6tedb")
 offset = Vector2(0, -105)
 metadata/_edit_lock_ = true
 
-[node name="Remains" type="Node2D" parent="Backgrounds/Part1/Part5" index="2"]
+[node name="Remains" type="Node2D" parent="Backgrounds/DestroyedMuseum/Part5" index="2"]
 y_sort_enabled = true
 
-[node name="Remain1" type="Node2D" parent="Backgrounds/Part1/Part5/Remains" index="0"]
+[node name="Remain1" type="Node2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains" index="0"]
 position = Vector2(149, 510)
 skew = 0.418879
 
-[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain1" index="0"]
+[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain1" index="0"]
 material = SubResource("ShaderMaterial_cq0g4")
 position = Vector2(2.89047, -4.81073)
 scale = Vector2(1.15, 1.15)
 texture = ExtResource("8_utwb1")
 offset = Vector2(0, 10)
 
-[node name="RemainDeepness" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain1" index="1"]
+[node name="RemainDeepness" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain1" index="1"]
 material = SubResource("ShaderMaterial_v7i0h")
 position = Vector2(3.89044, 6.18927)
 scale = Vector2(0.884, 0.884)
 texture = ExtResource("8_utwb1")
 
-[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain1" index="2"]
+[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain1" index="2"]
 material = SubResource("ShaderMaterial_kake3")
 position = Vector2(0.445221, 1.0946)
 texture = ExtResource("8_utwb1")
 
-[node name="Remain2" type="Node2D" parent="Backgrounds/Part1/Part5/Remains" index="1"]
+[node name="Remain2" type="Node2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains" index="1"]
 position = Vector2(91, 478)
 skew = 0.418879
 
-[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain2" index="0"]
+[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain2" index="0"]
 material = SubResource("ShaderMaterial_cq0g4")
 position = Vector2(-0.00698853, -9.85187)
 scale = Vector2(1.1, 1.1)
 texture = ExtResource("10_tku1c")
 offset = Vector2(0, 10)
 
-[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain2" index="1"]
+[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain2" index="1"]
 material = SubResource("ShaderMaterial_kake3")
 texture = ExtResource("10_tku1c")
 
-[node name="Remain3" type="Node2D" parent="Backgrounds/Part1/Part5/Remains" index="2"]
+[node name="Remain3" type="Node2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains" index="2"]
 z_index = 1
 position = Vector2(229, 378)
 skew = 0.418879
 
-[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain3" index="0"]
+[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain3" index="0"]
 material = SubResource("ShaderMaterial_lvbtt")
 position = Vector2(-0.00704956, -9.85175)
 scale = Vector2(1.1, 1.1)
 texture = ExtResource("11_7saw8")
 offset = Vector2(0, 10)
 
-[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain3" index="1"]
+[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain3" index="1"]
 material = SubResource("ShaderMaterial_kake3")
 texture = ExtResource("11_7saw8")
 
-[node name="Remain4" type="Node2D" parent="Backgrounds/Part1/Part5/Remains" index="3"]
+[node name="Remain4" type="Node2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains" index="3"]
 position = Vector2(253, 398)
 skew = 0.418879
 
-[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain4" index="0"]
+[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain4" index="0"]
 material = SubResource("ShaderMaterial_cq0g4")
 position = Vector2(4.56189, 1.75711)
 scale = Vector2(1.1, 1.1)
 texture = ExtResource("12_4xewi")
 offset = Vector2(0, 10)
 
-[node name="RemainDeepness" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain4" index="1"]
+[node name="RemainDeepness" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain4" index="1"]
 material = SubResource("ShaderMaterial_v7i0h")
 position = Vector2(6.99991, 4)
 scale = Vector2(0.884, 0.884)
 texture = ExtResource("12_4xewi")
 
-[node name="RemainDeepness2" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain4" index="2"]
+[node name="RemainDeepness2" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain4" index="2"]
 material = SubResource("ShaderMaterial_v7i0h")
 position = Vector2(5.2261, 9.47318)
 scale = Vector2(0.884, 0.884)
 texture = ExtResource("12_4xewi")
 
-[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain4" index="3"]
+[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain4" index="3"]
 material = SubResource("ShaderMaterial_kake3")
 position = Vector2(0.445221, 1.0946)
 texture = ExtResource("12_4xewi")
 
-[node name="Remain5" type="Node2D" parent="Backgrounds/Part1/Part5/Remains" index="4"]
+[node name="Remain5" type="Node2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains" index="4"]
 position = Vector2(293, 303)
 skew = 0.418879
 
-[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain5" index="0"]
+[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain5" index="0"]
 material = SubResource("ShaderMaterial_6eejc")
 position = Vector2(-0.00704956, -9.85175)
 scale = Vector2(1.1, 1.1)
 texture = ExtResource("11_7saw8")
 offset = Vector2(0, 10)
 
-[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain5" index="1"]
+[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain5" index="1"]
 material = SubResource("ShaderMaterial_kake3")
 texture = ExtResource("11_7saw8")
 
-[node name="Remain6" type="Node2D" parent="Backgrounds/Part1/Part5/Remains" index="5"]
+[node name="Remain6" type="Node2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains" index="5"]
 position = Vector2(59, 390)
 scale = Vector2(0.708, 0.708)
 skew = 0.418879
 
-[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain6" index="0"]
+[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain6" index="0"]
 material = SubResource("ShaderMaterial_cq0g4")
 position = Vector2(9.14902, -4.1167)
 rotation = 0.872665
@@ -277,17 +560,17 @@ scale = Vector2(1.1, 1.1)
 texture = ExtResource("10_tku1c")
 offset = Vector2(0, 10)
 
-[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain6" index="1"]
+[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain6" index="1"]
 material = SubResource("ShaderMaterial_kake3")
 rotation = 0.872665
 texture = ExtResource("10_tku1c")
 
-[node name="Remain7" type="Node2D" parent="Backgrounds/Part1/Part5/Remains" index="6"]
+[node name="Remain7" type="Node2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains" index="6"]
 position = Vector2(525, 638)
 scale = Vector2(1.5, 1.5)
 skew = 0.418879
 
-[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain7" index="0"]
+[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain7" index="0"]
 material = SubResource("ShaderMaterial_cq0g4")
 position = Vector2(10.2621, 3.00659)
 rotation = 0.911062
@@ -295,312 +578,312 @@ scale = Vector2(1.15, 1.15)
 texture = ExtResource("8_utwb1")
 offset = Vector2(0, 10)
 
-[node name="RemainDeepness" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain7" index="1"]
+[node name="RemainDeepness" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain7" index="1"]
 material = SubResource("ShaderMaterial_v7i0h")
 position = Vector2(0.346741, 2.82706)
 rotation = 0.911062
 scale = Vector2(0.884, 0.884)
 texture = ExtResource("8_utwb1")
 
-[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain7" index="2"]
+[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain7" index="2"]
 material = SubResource("ShaderMaterial_kake3")
 position = Vector2(0.445221, 1.0946)
 rotation = 0.911062
 texture = ExtResource("8_utwb1")
 
-[node name="Remain8" type="Node2D" parent="Backgrounds/Part1/Part5/Remains" index="7"]
+[node name="Remain8" type="Node2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains" index="7"]
 position = Vector2(627, 638)
 scale = Vector2(1.2, 1.2)
 skew = 0.418879
 
-[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain8" index="0"]
+[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain8" index="0"]
 material = SubResource("ShaderMaterial_cq0g4")
 position = Vector2(-0.00698853, -9.85187)
 scale = Vector2(1.1, 1.1)
 texture = ExtResource("10_tku1c")
 offset = Vector2(0, 10)
 
-[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain8" index="1"]
+[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain8" index="1"]
 material = SubResource("ShaderMaterial_kake3")
 texture = ExtResource("10_tku1c")
 
-[node name="Remain9" type="Node2D" parent="Backgrounds/Part1/Part5/Remains" index="8"]
+[node name="Remain9" type="Node2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains" index="8"]
 z_index = 1
 position = Vector2(747, 351)
 skew = 0.418879
 
-[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain9" index="0"]
+[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain9" index="0"]
 material = SubResource("ShaderMaterial_xsi4k")
 position = Vector2(-0.00704956, -9.85175)
 scale = Vector2(1.1, 1.1)
 texture = ExtResource("11_7saw8")
 offset = Vector2(0, 10)
 
-[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain9" index="1"]
+[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain9" index="1"]
 material = SubResource("ShaderMaterial_kake3")
 texture = ExtResource("11_7saw8")
 
-[node name="Remain10" type="Node2D" parent="Backgrounds/Part1/Part5/Remains" index="9"]
+[node name="Remain10" type="Node2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains" index="9"]
 z_index = 1
 position = Vector2(763, 357)
 scale = Vector2(0.6, 0.6)
 skew = 0.418879
 
-[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain10" index="0"]
+[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain10" index="0"]
 material = SubResource("ShaderMaterial_xsi4k")
 position = Vector2(-0.00704956, -9.85175)
 scale = Vector2(1.1, 1.1)
 texture = ExtResource("11_7saw8")
 offset = Vector2(0, 10)
 
-[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain10" index="1"]
+[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain10" index="1"]
 material = SubResource("ShaderMaterial_kake3")
 texture = ExtResource("11_7saw8")
 
-[node name="Remain11" type="Node2D" parent="Backgrounds/Part1/Part5/Remains" index="10"]
+[node name="Remain11" type="Node2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains" index="10"]
 position = Vector2(605, 414)
 scale = Vector2(2.031, 2.031)
 skew = 0.418879
 
-[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain11" index="0"]
+[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain11" index="0"]
 material = SubResource("ShaderMaterial_cq0g4")
 position = Vector2(-0.368805, -7.94424)
 scale = Vector2(1.117, 1.117)
 texture = ExtResource("10_tku1c")
 offset = Vector2(0, 10)
 
-[node name="RemainDeepness" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain11" index="1"]
+[node name="RemainDeepness" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain11" index="1"]
 material = SubResource("ShaderMaterial_v7i0h")
 position = Vector2(1.2533, 0.76622)
 scale = Vector2(0.833, 0.833)
 texture = ExtResource("10_tku1c")
 
-[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain11" index="2"]
+[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain11" index="2"]
 material = SubResource("ShaderMaterial_kake3")
 position = Vector2(0.445221, 1.0946)
 texture = ExtResource("10_tku1c")
 
-[node name="Remain12" type="Node2D" parent="Backgrounds/Part1/Part5/Remains" index="11"]
+[node name="Remain12" type="Node2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains" index="11"]
 position = Vector2(981, 399)
 skew = 0.418879
 
-[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain12" index="0"]
+[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain12" index="0"]
 material = SubResource("ShaderMaterial_nts14")
 position = Vector2(-0.00704956, -9.85175)
 scale = Vector2(1.1, 1.1)
 texture = ExtResource("11_7saw8")
 offset = Vector2(0, 10)
 
-[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain12" index="1"]
+[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain12" index="1"]
 material = SubResource("ShaderMaterial_kake3")
 texture = ExtResource("11_7saw8")
 
-[node name="Remain13" type="Node2D" parent="Backgrounds/Part1/Part5/Remains" index="12"]
+[node name="Remain13" type="Node2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains" index="12"]
 position = Vector2(1101, 463)
 skew = 0.418879
 
-[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain13" index="0"]
+[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain13" index="0"]
 material = SubResource("ShaderMaterial_nts14")
 position = Vector2(-0.00704956, -9.85175)
 scale = Vector2(1.1, 1.1)
 texture = ExtResource("11_7saw8")
 offset = Vector2(0, 10)
 
-[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain13" index="1"]
+[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain13" index="1"]
 material = SubResource("ShaderMaterial_kake3")
 texture = ExtResource("11_7saw8")
 
-[node name="Remain14" type="Node2D" parent="Backgrounds/Part1/Part5/Remains" index="13"]
+[node name="Remain14" type="Node2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains" index="13"]
 position = Vector2(685, 439)
 skew = 0.418879
 
-[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain14" index="0"]
+[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain14" index="0"]
 material = SubResource("ShaderMaterial_nts14")
 position = Vector2(-0.00704956, -9.85175)
 scale = Vector2(1.1, 1.1)
 texture = ExtResource("11_7saw8")
 offset = Vector2(0, 10)
 
-[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain14" index="1"]
+[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain14" index="1"]
 material = SubResource("ShaderMaterial_kake3")
 texture = ExtResource("11_7saw8")
 
-[node name="Remain15" type="Node2D" parent="Backgrounds/Part1/Part5/Remains" index="14"]
+[node name="Remain15" type="Node2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains" index="14"]
 position = Vector2(469, 463)
 skew = 0.418879
 
-[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain15" index="0"]
+[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain15" index="0"]
 material = SubResource("ShaderMaterial_nts14")
 position = Vector2(-0.00704956, -9.85175)
 scale = Vector2(1.1, 1.1)
 texture = ExtResource("11_7saw8")
 offset = Vector2(0, 10)
 
-[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain15" index="1"]
+[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain15" index="1"]
 material = SubResource("ShaderMaterial_kake3")
 texture = ExtResource("11_7saw8")
 
-[node name="Remain16" type="Node2D" parent="Backgrounds/Part1/Part5/Remains" index="15"]
+[node name="Remain16" type="Node2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains" index="15"]
 position = Vector2(453, 487)
 skew = 0.418879
 
-[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain16" index="0"]
+[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain16" index="0"]
 material = SubResource("ShaderMaterial_nts14")
 position = Vector2(-0.00704956, -9.85175)
 scale = Vector2(1.1, 1.1)
 texture = ExtResource("11_7saw8")
 offset = Vector2(0, 10)
 
-[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain16" index="1"]
+[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain16" index="1"]
 material = SubResource("ShaderMaterial_kake3")
 texture = ExtResource("11_7saw8")
 
-[node name="Remain17" type="Node2D" parent="Backgrounds/Part1/Part5/Remains" index="16"]
+[node name="Remain17" type="Node2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains" index="16"]
 position = Vector2(413, 463)
 skew = 0.418879
 
-[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain17" index="0"]
+[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain17" index="0"]
 material = SubResource("ShaderMaterial_nts14")
 position = Vector2(-1.11658, -7.66248)
 scale = Vector2(1.1, 1.1)
 texture = ExtResource("10_tku1c")
 offset = Vector2(0, 10)
 
-[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain17" index="1"]
+[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain17" index="1"]
 material = SubResource("ShaderMaterial_kake3")
 texture = ExtResource("10_tku1c")
 
-[node name="Remain18" type="Node2D" parent="Backgrounds/Part1/Part5/Remains" index="17"]
+[node name="Remain18" type="Node2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains" index="17"]
 position = Vector2(893, 543)
 skew = 0.418879
 
-[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain18" index="0"]
+[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain18" index="0"]
 material = SubResource("ShaderMaterial_nts14")
 position = Vector2(-1.11658, -7.66248)
 scale = Vector2(1.1, 1.1)
 texture = ExtResource("10_tku1c")
 offset = Vector2(0, 10)
 
-[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain18" index="1"]
+[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain18" index="1"]
 material = SubResource("ShaderMaterial_kake3")
 texture = ExtResource("10_tku1c")
 
-[node name="Remain19" type="Node2D" parent="Backgrounds/Part1/Part5/Remains" index="18"]
+[node name="Remain19" type="Node2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains" index="18"]
 position = Vector2(733, 623)
 skew = 0.418879
 
-[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain19" index="0"]
+[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain19" index="0"]
 material = SubResource("ShaderMaterial_nts14")
 position = Vector2(-1.11658, -7.66248)
 scale = Vector2(1.1, 1.1)
 texture = ExtResource("8_utwb1")
 offset = Vector2(0, 10)
 
-[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain19" index="1"]
+[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain19" index="1"]
 material = SubResource("ShaderMaterial_kake3")
 texture = ExtResource("8_utwb1")
 
-[node name="Remain20" type="Node2D" parent="Backgrounds/Part1/Part5/Remains" index="19"]
+[node name="Remain20" type="Node2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains" index="19"]
 z_index = 1
 position = Vector2(349, 277)
 scale = Vector2(0.7, 0.7)
 skew = 0.418879
 
-[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain20" index="0"]
+[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain20" index="0"]
 material = SubResource("ShaderMaterial_lgksg")
 position = Vector2(-1.11658, -7.66248)
 scale = Vector2(1.1, 1.1)
 texture = ExtResource("10_tku1c")
 offset = Vector2(0, 10)
 
-[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain20" index="1"]
+[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain20" index="1"]
 material = SubResource("ShaderMaterial_kake3")
 texture = ExtResource("10_tku1c")
 
-[node name="Remain21" type="Node2D" parent="Backgrounds/Part1/Part5/Remains" index="20"]
+[node name="Remain21" type="Node2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains" index="20"]
 z_index = 1
 position = Vector2(381, 269)
 scale = Vector2(0.7, 0.7)
 skew = 0.418879
 
-[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain21" index="0"]
+[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain21" index="0"]
 material = SubResource("ShaderMaterial_lgksg")
 position = Vector2(-1.11658, -7.66248)
 scale = Vector2(1.1, 1.1)
 texture = ExtResource("11_7saw8")
 offset = Vector2(0, 10)
 
-[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain21" index="1"]
+[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain21" index="1"]
 material = SubResource("ShaderMaterial_kake3")
 texture = ExtResource("11_7saw8")
 
-[node name="Remain22" type="Node2D" parent="Backgrounds/Part1/Part5/Remains" index="21"]
+[node name="Remain22" type="Node2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains" index="21"]
 z_index = 1
 position = Vector2(4.99997, 357)
 scale = Vector2(0.7, 0.7)
 skew = 0.418879
 
-[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain22" index="0"]
+[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain22" index="0"]
 material = SubResource("ShaderMaterial_lgksg")
 position = Vector2(-1.11658, -7.66248)
 scale = Vector2(1.1, 1.1)
 texture = ExtResource("11_7saw8")
 offset = Vector2(0, 10)
 
-[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain22" index="1"]
+[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain22" index="1"]
 material = SubResource("ShaderMaterial_kake3")
 texture = ExtResource("11_7saw8")
 
-[node name="Remain23" type="Node2D" parent="Backgrounds/Part1/Part5/Remains" index="22"]
+[node name="Remain23" type="Node2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains" index="22"]
 z_index = 1
 position = Vector2(53, 562)
 scale = Vector2(0.6, 0.6)
 skew = 0.418879
 
-[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain23" index="0"]
+[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain23" index="0"]
 material = SubResource("ShaderMaterial_lvbtt")
 position = Vector2(-0.00704956, -9.85175)
 scale = Vector2(1.1, 1.1)
 texture = ExtResource("11_7saw8")
 offset = Vector2(0, 10)
 
-[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain23" index="1"]
+[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain23" index="1"]
 material = SubResource("ShaderMaterial_kake3")
 texture = ExtResource("11_7saw8")
 
-[node name="Remain24" type="Node2D" parent="Backgrounds/Part1/Part5/Remains" index="23"]
+[node name="Remain24" type="Node2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains" index="23"]
 z_index = 1
 position = Vector2(36, 556)
 skew = 0.418879
 
-[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain24" index="0"]
+[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain24" index="0"]
 material = SubResource("ShaderMaterial_lvbtt")
 position = Vector2(-0.00704956, -9.85175)
 scale = Vector2(1.1, 1.1)
 texture = ExtResource("11_7saw8")
 offset = Vector2(0, 10)
 
-[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain24" index="1"]
+[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain24" index="1"]
 material = SubResource("ShaderMaterial_kake3")
 texture = ExtResource("11_7saw8")
 
-[node name="Remain25" type="Node2D" parent="Backgrounds/Part1/Part5/Remains" index="24"]
+[node name="Remain25" type="Node2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains" index="24"]
 z_index = 1
 position = Vector2(748, 572)
 skew = 0.418879
 
-[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain25" index="0"]
+[node name="RemainShadow" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain25" index="0"]
 material = SubResource("ShaderMaterial_lvbtt")
 position = Vector2(-0.00704956, -9.85175)
 scale = Vector2(1.1, 1.1)
 texture = ExtResource("11_7saw8")
 offset = Vector2(0, 10)
 
-[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/Part1/Part5/Remains/Remain25" index="1"]
+[node name="RemainTexture" type="Sprite2D" parent="Backgrounds/DestroyedMuseum/Part5/Remains/Remain25" index="1"]
 material = SubResource("ShaderMaterial_kake3")
 texture = ExtResource("11_7saw8")
 
-[node name="ColorRect" type="ColorRect" parent="Backgrounds/Part1" index="2"]
+[node name="ColorRect" type="ColorRect" parent="Backgrounds/DestroyedMuseum" index="2"]
 z_index = 1
 layout_mode = 1
 anchors_preset = 15
@@ -611,3 +894,29 @@ grow_vertical = 2
 color = Color(0.12549, 0.12549, 0.12549, 0.772549)
 
 [node name="MainCharacter" type="Node2D" parent="Actors" index="0"]
+z_index = 1
+position = Vector2(100, 450)
+scale = Vector2(0.4, 0.4)
+
+[node name="Body" type="Sprite2D" parent="Actors/MainCharacter" index="0"]
+texture = ExtResource("11_px8o0")
+
+[node name="Mouth" type="Sprite2D" parent="Actors/MainCharacter" index="1"]
+texture = ExtResource("12_x7ocw")
+
+[node name="Eyes" type="Sprite2D" parent="Actors/MainCharacter" index="2"]
+texture = ExtResource("13_v05nl")
+
+[node name="Eyebrows" type="Sprite2D" parent="Actors/MainCharacter" index="3"]
+texture = ExtResource("14_eqyj4")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Actors/MainCharacter" index="4"]
+libraries = {
+"": SubResource("AnimationLibrary_3mjqv")
+}
+
+[node name="RightLabelText" parent="TextLayer/Control/RightContainer/VBoxContainer/PanelContainer/MarginContainer" index="0"]
+text = "Oh no! The museum is entirely wrecked..."
+
+[node name="LeftLabelText" parent="TextLayer/Control/LeftContainer/VBoxContainer/PanelContainer/MarginContainer" index="0"]
+text = "Oh no! The museum is entirely wrecked..."
