@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bh4724plcerq"
-path="res://.godot/imported/statue.png-1480e0fb60d25a69b516f3481362aeaa.ctex"
+uid="uid://b7xkm7x886r1r"
+path="res://.godot/imported/dialog_box.png-33b2f77ca4d96ccce27ea9648332e894.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/sculptures/24px/statue.png"
-dest_files=["res://.godot/imported/statue.png-1480e0fb60d25a69b516f3481362aeaa.ctex"]
+source_file="res://assets/images/sprites/dialog_box.png"
+dest_files=["res://.godot/imported/dialog_box.png-33b2f77ca4d96ccce27ea9648332e894.ctex"]
 
 [params]
 

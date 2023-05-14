@@ -1,48 +1,19 @@
-[gd_scene load_steps=8 format=3 uid="uid://dwa86bqhdoclg"]
+[gd_scene load_steps=9 format=3 uid="uid://dwa86bqhdoclg"]
 
 [ext_resource type="Script" path="res://game/game.gd" id="1_l0vog"]
 [ext_resource type="PackedScene" uid="uid://b47aog6buqfrv" path="res://classes/sculpture_block/sculpture_block.tscn" id="2_nuq5l"]
-[ext_resource type="Texture2D" uid="uid://ckqkb3ma8pqq4" path="res://assets/images/background/museum_intact.png" id="2_sbbkv"]
 [ext_resource type="PackedScene" uid="uid://b6q0fks7bmdxu" path="res://classes/sculpture_reference/sculpture_reference.tscn" id="3_bvg7f"]
 [ext_resource type="Texture2D" uid="uid://c6i8x5d7t37y3" path="res://assets/images/sprites/pedestal_long.png" id="3_lqg1r"]
 [ext_resource type="PackedScene" uid="uid://bgixtm14e06q" path="res://classes/sculpture_reference/sculpture_reference_visualizer.tscn" id="3_ng8po"]
 [ext_resource type="FontFile" uid="uid://xrwhd2utjvhn" path="res://assets/fonts/lt_sculpture.otf" id="5_lor22"]
+[ext_resource type="Texture2D" uid="uid://bqhko2tkx4ru7" path="res://assets/images/background/museum_background.png" id="5_y4j8u"]
+[ext_resource type="PackedScene" uid="uid://cg8qj87pyp2g" path="res://game/cinematic_transition.tscn" id="8_72qto"]
 
 [node name="Game" type="Node"]
 script = ExtResource("1_l0vog")
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
-
-[node name="CanvasLayerBackground" type="CanvasLayer" parent="."]
-layer = -1
-
-[node name="MatchBackground" type="Control" parent="CanvasLayerBackground"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayerBackground/MatchBackground"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_sbbkv")
-expand_mode = 1
-
-[node name="ColorRect" type="ColorRect" parent="CanvasLayerBackground/MatchBackground"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.0705882, 0.0705882, 0.0705882, 0.647059)
 
 [node name="Level" type="Node2D" parent="."]
 
@@ -74,6 +45,33 @@ end_cap_mode = 2
 
 [node name="Camera2D" type="Camera2D" parent="Level"]
 zoom = Vector2(1.5, 1.5)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Level"]
+layer = -1
+
+[node name="Background" type="Control" parent="Level/CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Level/CanvasLayer/Background"]
+layout_mode = 0
+offset_left = -724.0
+offset_right = 1876.0
+offset_bottom = 1080.0
+texture = ExtResource("5_y4j8u")
+
+[node name="ColorRect" type="ColorRect" parent="Level/CanvasLayer/Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.12549, 0.12549, 0.12549, 0.772549)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -128,5 +126,11 @@ horizontal_alignment = 1
 autoplay = true
 
 [node name="CinematicLayer" type="CanvasLayer" parent="."]
+
+[node name="TransitionLayer" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="CinematicTransition" parent="TransitionLayer" instance=ExtResource("8_72qto")]
+z_index = 10
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

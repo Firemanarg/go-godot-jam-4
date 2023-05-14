@@ -1,0 +1,171 @@
+[gd_scene load_steps=5 format=3 uid="uid://bk3px2qq0wr5l"]
+
+[ext_resource type="Script" path="res://dialogs/dialog_template.gd" id="1_dg645"]
+[ext_resource type="Texture2D" uid="uid://b7xkm7x886r1r" path="res://assets/images/sprites/dialog_box.png" id="2_2jey5"]
+[ext_resource type="FontFile" uid="uid://df8w12huhjs2n" path="res://assets/fonts/rony_siswadi_architect_4.ttf" id="3_80cro"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rj8qk"]
+
+[node name="DialogTemplate" type="Node"]
+script = ExtResource("1_dg645")
+
+[node name="Backgrounds" type="Node" parent="."]
+
+[node name="Actors" type="Node" parent="."]
+
+[node name="TextLayer" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="Control" type="Control" parent="TextLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RightContainer" type="HBoxContainer" parent="TextLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TextLayer/Control/RightContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="TextLayer/Control/RightContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_rj8qk")
+
+[node name="TextureRect" type="TextureRect" parent="TextLayer/Control/RightContainer/VBoxContainer/PanelContainer"]
+modulate = Color(1, 1, 1, 0.470588)
+custom_minimum_size = Vector2(800, 400)
+layout_mode = 2
+texture = ExtResource("2_2jey5")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="TextLayer/Control/RightContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 120
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 80
+
+[node name="RightLabelText" type="Label" parent="TextLayer/Control/RightContainer/VBoxContainer/PanelContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.329412, 0.329412, 0.329412, 0.784314)
+theme_override_constants/shadow_offset_x = -2
+theme_override_constants/shadow_offset_y = 4
+theme_override_constants/line_spacing = 12
+theme_override_fonts/font = ExtResource("3_80cro")
+theme_override_font_sizes/font_size = 50
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="MarginContainer2" type="MarginContainer" parent="TextLayer/Control/RightContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 85
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TextLayer/Control/RightContainer/VBoxContainer/PanelContainer/MarginContainer2"]
+layout_mode = 2
+alignment = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TextLayer/Control/RightContainer/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="RightLabelContinue" type="Label" parent="TextLayer/Control/RightContainer/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.682353, 0.682353, 0.682353, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("3_80cro")
+theme_override_font_sizes/font_size = 25
+text = "Press SPACEBAR to continue..."
+
+[node name="LeftContainer" type="HBoxContainer" parent="TextLayer/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TextLayer/Control/LeftContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="TextLayer/Control/LeftContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_rj8qk")
+
+[node name="TextureRect" type="TextureRect" parent="TextLayer/Control/LeftContainer/VBoxContainer/PanelContainer"]
+modulate = Color(1, 1, 1, 0.470588)
+custom_minimum_size = Vector2(800, 400)
+layout_mode = 2
+texture = ExtResource("2_2jey5")
+expand_mode = 1
+stretch_mode = 4
+flip_h = true
+
+[node name="MarginContainer" type="MarginContainer" parent="TextLayer/Control/LeftContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 120
+theme_override_constants/margin_bottom = 80
+
+[node name="LeftLabelText" type="Label" parent="TextLayer/Control/LeftContainer/VBoxContainer/PanelContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.329412, 0.329412, 0.329412, 0.784314)
+theme_override_constants/shadow_offset_x = -2
+theme_override_constants/shadow_offset_y = 4
+theme_override_constants/line_spacing = 12
+theme_override_fonts/font = ExtResource("3_80cro")
+theme_override_font_sizes/font_size = 50
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="MarginContainer2" type="MarginContainer" parent="TextLayer/Control/LeftContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_right = 180
+theme_override_constants/margin_bottom = 85
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TextLayer/Control/LeftContainer/VBoxContainer/PanelContainer/MarginContainer2"]
+layout_mode = 2
+alignment = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TextLayer/Control/LeftContainer/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="LeftLabelContinue" type="Label" parent="TextLayer/Control/LeftContainer/VBoxContainer/PanelContainer/MarginContainer2/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.682353, 0.682353, 0.682353, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("3_80cro")
+theme_override_font_sizes/font_size = 25
+text = "Press SPACEBAR to continue..."
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0

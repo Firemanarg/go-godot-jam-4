@@ -1,11 +1,14 @@
 extends Node
 
 
+const FADE_IN_DURATION: float = 0.8
+const FADE_OUT_DURATION: float = 0.8
 const MATCH_WEIGHT: Array[float] = [1.0, 3.0]
 const UNMATCH_WEIGHT: Array[float] = [2.0, 3.0]
 const EMPTY: int = 0
 const NOT_EMPTY: int = 1
 const INTRO_CINEMATIC_PRELOAD = preload("res://cinematics/intro_cinematic.tscn")
+const INTRO_POST_CINEMATIC_DIALOG_PRELOAD = preload("res://dialogs/intro_post_cinematic_dialog.tscn")
 
 var is_match_in_progress: bool = false
 var refs_list: Array[Dictionary] = []
@@ -22,24 +25,46 @@ var current_cinematic = null
 @onready var timer = get_node("Timer")
 @onready var label_timer = get_node("CanvasLayer/MarginContainer/VBoxContainer/LabelTimer")
 @onready var cinematic_layer = get_node("CinematicLayer")
+@onready var transition = get_node("TransitionLayer/CinematicTransition")
 
 
 func _ready():
-	current_cinematic = INTRO_CINEMATIC_PRELOAD.instantiate()
-	cinematic_layer.add_child(current_cinematic)
-	current_cinematic.play_cinematic()
-#	reference_visualizer.reference = sculpture_reference
-#	begin_match({8: 2, 16: 1})
-#	print(Vector2(10, 8).normalized())
+	reference_visualizer.reference = sculpture_reference
+	transition.duration_in = FADE_IN_DURATION
+	transition.duration_out = FADE_OUT_DURATION
+	cinematic_transition(
+		INTRO_CINEMATIC_PRELOAD.instantiate(),
+		_on_intro_cinematic_finished)
 
 
 func _process(delta):
+	if current_cinematic:
+		if current_cinematic is Cinematic:
+			if Input.is_action_just_pressed("skip_cinematic"):
+				current_cinematic.skip()
+		elif current_cinematic is Dialog:
+			if Input.is_action_just_pressed("skip_cinematic"):
+				current_cinematic.skip(true)
+			if Input.is_action_just_pressed("skip_dialog"):
+				current_cinematic.skip()
 	if is_match_in_progress:
 		_update_timer(timer.get_time_left())
 
 
 func _physics_process(delta):
 	pass
+
+
+func set_current_cinematic(cinematic, finished_func: Callable) -> void:
+	if current_cinematic:
+		current_cinematic.queue_free()
+	current_cinematic = cinematic
+	current_cinematic.finished.connect(finished_func)
+	cinematic_layer.add_child(current_cinematic)
+
+
+func play_current_cinematic() -> void:
+	current_cinematic.play()
 
 
 func begin_match(refs_amount: Dictionary = {}) -> void:
@@ -126,6 +151,16 @@ func get_sculpture_match_percent() -> float:
 	return (percent)
 
 
+func cinematic_transition(next_cinematic, finished_func: Callable) -> void:
+	transition.fade_out()
+	await transition.finished
+	transition.fade_in()
+	if next_cinematic:
+		set_current_cinematic(next_cinematic, finished_func)
+		play_current_cinematic()
+#		await transition.finished
+
+
 func _change_sculpture(sculpture_data: Dictionary) -> void:
 	sculpture_reference.set_sculpture_data(sculpture_data)
 	reference_visualizer.update()
@@ -146,3 +181,21 @@ func _on_timer_timeout():
 	sculpture_block.enable_edition(false)
 	begin_round()
 	pass
+
+
+func _on_intro_cinematic_finished() -> void:
+	transition.fade_out()
+
+	cinematic_transition(
+		INTRO_POST_CINEMATIC_DIALOG_PRELOAD.instantiate(),
+		_on_intro_post_cinematic_dialog_finished)
+
+
+func _on_intro_post_cinematic_dialog_finished() -> void:
+	print("Dialog finished!")
+	transition.fade_out()
+	await transition.finished
+	current_cinematic.queue_free()
+	current_cinematic = null
+	transition.fade_in()
+	begin_match({8: 2, 16: 1})
