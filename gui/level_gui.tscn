@@ -1,0 +1,74 @@
+[gd_scene load_steps=4 format=3 uid="uid://lkqy1mql8a40"]
+
+[ext_resource type="PackedScene" uid="uid://bgixtm14e06q" path="res://classes/sculpture_reference/sculpture_reference_visualizer.tscn" id="1_5jfjn"]
+[ext_resource type="Script" path="res://gui/level_gui.gd" id="1_o45yi"]
+[ext_resource type="FontFile" uid="uid://xrwhd2utjvhn" path="res://assets/fonts/lt_sculpture.otf" id="2_bl8sa"]
+
+[node name="LevelGUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_o45yi")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="SculptureReferenceVisualizer" parent="MarginContainer/HBoxContainer/VBoxContainer" instance=ExtResource("1_5jfjn")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+
+[node name="VisiblePivot" type="Node2D" parent="MarginContainer/HBoxContainer/VBoxContainer/SculptureReferenceVisualizer"]
+position = Vector2(64, 125)
+
+[node name="LineAxisX" type="Line2D" parent="MarginContainer/HBoxContainer/VBoxContainer/SculptureReferenceVisualizer/VisiblePivot"]
+points = PackedVector2Array(-15, 0, 15, 0)
+width = 2.0
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="LineAxisY" type="Line2D" parent="MarginContainer/HBoxContainer/VBoxContainer/SculptureReferenceVisualizer/VisiblePivot"]
+points = PackedVector2Array(0, -10, 0, 10)
+width = 2.0
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="LabelSculptureName" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_bl8sa")
+theme_override_font_sizes/font_size = 24
+text = "Toy 1"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="LabelTimer" type="Label" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_bl8sa")
+theme_override_font_sizes/font_size = 48
+text = "00:00"
+horizontal_alignment = 1
