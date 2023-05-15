@@ -1,5 +1,5 @@
 extends Node
-class_name Cinematic
+class_name Cutscene
 
 
 signal started

@@ -1,6 +1,6 @@
-[gd_scene load_steps=53 format=3 uid="uid://2uad8trcyx23"]
+[gd_scene load_steps=53 format=3 uid="uid://b38g2hy0d0wah"]
 
-[ext_resource type="PackedScene" uid="uid://bucw5ee5yjnc0" path="res://cinematics/cinematic_template.tscn" id="1_51y5p"]
+[ext_resource type="PackedScene" uid="uid://bd3vk1gqybgt5" path="res://cutscenes/cutscene_template.tscn" id="1_cyuv4"]
 [ext_resource type="Texture2D" uid="uid://bqhko2tkx4ru7" path="res://assets/images/background/museum_background.png" id="2_w0wqh"]
 [ext_resource type="Texture2D" uid="uid://bqap38q4tvsbu" path="res://assets/images/sprites/pedestal_with_shadow.png" id="3_wg7tt"]
 [ext_resource type="Shader" path="res://classes/sculpture_reference/outline_shader.gdshader" id="4_rb6vr"]
@@ -1680,11 +1680,10 @@ _data = {
 "part_5": SubResource("Animation_abng0")
 }
 
-[node name="IntroCinematic" instance=ExtResource("1_51y5p")]
+[node name="IntroCinematic" instance=ExtResource("1_cyuv4")]
 animations_names_list = PackedStringArray("part_1", "part_2", "part_3", "part_4", "part_5")
 
 [node name="Part1" type="Control" parent="Backgrounds" index="0"]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1762,6 +1761,7 @@ color = Color(0.12549, 0.12549, 0.12549, 1)
 metadata/_edit_lock_ = true
 
 [node name="Part5" type="Control" parent="Backgrounds" index="4"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1784,7 +1784,6 @@ expand_mode = 1
 stretch_mode = 4
 
 [node name="Part1" type="Node2D" parent="Actors" index="0"]
-visible = false
 y_sort_enabled = true
 
 [node name="Pedestals" type="Node2D" parent="Actors/Part1" index="0"]
@@ -2058,6 +2057,7 @@ texture = ExtResource("6_tdc2v")
 offset = Vector2(0, -4)
 
 [node name="Part5" type="Node2D" parent="Actors" index="4"]
+visible = false
 y_sort_enabled = true
 
 [node name="Pedestals" type="Node2D" parent="Actors/Part5" index="0"]

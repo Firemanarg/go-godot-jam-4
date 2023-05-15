@@ -1,9 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://bucw5ee5yjnc0"]
+[gd_scene load_steps=2 format=3 uid="uid://bd3vk1gqybgt5"]
 
-[ext_resource type="Script" path="res://cinematics/cinematic_template.gd" id="1_y1bg0"]
+[ext_resource type="Script" path="res://cutscenes/cutscene_template.gd" id="1_7gpwc"]
 
-[node name="CinematicTemplate" type="Node"]
-script = ExtResource("1_y1bg0")
+[node name="CutsceneTemplate" type="Node"]
+script = ExtResource("1_7gpwc")
 
 [node name="Backgrounds" type="Node" parent="."]
 
