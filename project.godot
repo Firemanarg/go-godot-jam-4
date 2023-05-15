@@ -21,7 +21,7 @@ Sculptures="*res://game/sculptures.gd"
 
 [display]
 
-window/stretch/mode="viewport"
+window/stretch/mode="canvas_items"
 
 [input]
 
