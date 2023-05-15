@@ -1,7 +1,8 @@
-[gd_scene load_steps=33 format=3 uid="uid://b61bhdagujnus"]
+[gd_scene load_steps=41 format=3 uid="uid://b61bhdagujnus"]
 
 [ext_resource type="PackedScene" uid="uid://bk3px2qq0wr5l" path="res://dialogs/dialog_template.tscn" id="1_gr2yc"]
 [ext_resource type="Texture2D" uid="uid://bqhko2tkx4ru7" path="res://assets/images/background/museum_background.png" id="2_i30va"]
+[ext_resource type="Script" path="res://dialogs/intro_post_cutscene_dialog.gd" id="2_mjllv"]
 [ext_resource type="Texture2D" uid="uid://bqap38q4tvsbu" path="res://assets/images/sprites/pedestal_with_shadow.png" id="3_kaku1"]
 [ext_resource type="Texture2D" uid="uid://q3nwp0t37ryl" path="res://assets/images/sprites/table_with_shadow.png" id="6_6tedb"]
 [ext_resource type="Shader" path="res://shaders/color_fill.gdshader" id="7_17cjt"]
@@ -18,6 +19,8 @@
 [ext_resource type="Texture2D" uid="uid://x0ihl8jtt6mu" path="res://assets/images/sprites/main_character/parts/main_character_eyes_closed.png" id="16_7komq"]
 [ext_resource type="Texture2D" uid="uid://cajsh5bvhxd44" path="res://assets/images/sprites/main_character/parts/main_character_eyes_regular.png" id="17_vn8l2"]
 [ext_resource type="Texture2D" uid="uid://bg6fhb0f54wl5" path="res://assets/images/sprites/main_character/parts/main_character_eyebrows_regular.png" id="18_ogv0m"]
+[ext_resource type="Texture2D" uid="uid://bbw8q0o4eh02w" path="res://assets/images/sprites/main_character/parts/main_character_mouth_big_smile.png" id="20_s5h77"]
+[ext_resource type="Texture2D" uid="uid://d24yg8t4nryhj" path="res://assets/images/sprites/main_character/parts/main_character_mouth_little_smile.png" id="21_004is"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cq0g4"]
 shader = ExtResource("7_17cjt")
@@ -111,6 +114,110 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0)
 }
 
+[sub_resource type="Animation" id="Animation_08gv6"]
+resource_name = "happy"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mouth:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("20_s5h77")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Eyes:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("17_vn8l2")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Eyebrows:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("18_ogv0m")]
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_k21pn"]
+resource_name = "happy_surprised"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mouth:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("20_s5h77")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Eyes:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("17_vn8l2")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Eyebrows:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("14_eqyj4")]
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
 [sub_resource type="Animation" id="Animation_rs82g"]
 resource_name = "neutral"
 length = 0.1
@@ -138,6 +245,58 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [ExtResource("17_vn8l2")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Eyebrows:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("18_ogv0m")]
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_doqql"]
+resource_name = "proud"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mouth:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("21_004is")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Eyes:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("16_7komq")]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -267,6 +426,58 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.1)
 }
 
+[sub_resource type="Animation" id="Animation_ug272"]
+resource_name = "smiling"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mouth:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("21_004is")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Eyes:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("17_vn8l2")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Eyebrows:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("18_ogv0m")]
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
 [sub_resource type="Animation" id="Animation_ocxmx"]
 resource_name = "thinking"
 length = 0.1
@@ -319,16 +530,74 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0)
 }
 
+[sub_resource type="Animation" id="Animation_xfsp8"]
+resource_name = "worried"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mouth:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("12_x7ocw")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Eyes:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("17_vn8l2")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Eyebrows:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("18_ogv0m")]
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3mjqv"]
 _data = {
 "RESET": SubResource("Animation_ojcmh"),
+"happy": SubResource("Animation_08gv6"),
+"happy_surprised": SubResource("Animation_k21pn"),
 "neutral": SubResource("Animation_rs82g"),
+"proud": SubResource("Animation_doqql"),
 "scaried": SubResource("Animation_4a4bx"),
 "scaried_shaking": SubResource("Animation_0x741"),
-"thinking": SubResource("Animation_ocxmx")
+"smiling": SubResource("Animation_ug272"),
+"thinking": SubResource("Animation_ocxmx"),
+"worried": SubResource("Animation_xfsp8")
 }
 
 [node name="IntroPostCinematicDialog" instance=ExtResource("1_gr2yc")]
+script = ExtResource("2_mjllv")
 dialogs = Array[Dictionary]([{
 "actors_animations": {
 "MainCharacter": "scaried"
