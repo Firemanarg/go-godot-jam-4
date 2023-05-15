@@ -1,6 +1,8 @@
 extends Node2D
 
 
+signal block_carved
+
 enum SubBlockID {
 	EMPTY = -1,
 	BLACK,
@@ -48,11 +50,9 @@ func _ready():
 
 func _process(delta):
 	if _enable_edition and _can_sculpt:
-		var is_mouse_pressed: bool = (
-				Input.is_action_pressed("mouse_button_left")
-				or Input.is_action_just_pressed("mouse_button_left")
-		)
-		if is_mouse_pressed:
+		var is_mouse_pressed: bool = Input.is_action_pressed("mouse_button_left")
+		var is_mouse_just_pressed: bool = Input.is_action_just_pressed("mouse_button_left")
+		if is_mouse_pressed or is_mouse_just_pressed:
 			var mouse_pos: Vector2 = to_local(get_global_mouse_position())
 			var map_pos: Vector2i = tilemap.local_to_map(mouse_pos)
 			var fixed_map_pos: Vector2i = map_pos + Vector2i(size.x / 2.0, size.y)
@@ -72,6 +72,10 @@ func is_sub_block_empty(pos: Vector2i) -> bool:
 
 func set_sub_block(pos: Vector2i, id: SubBlockID):
 	var atlas_coord: Vector2i = _SubBlockCoords[id]
+	if id == SubBlockID.EMPTY:
+		var prev_coords: Vector2i = tilemap.get_cell_atlas_coords(0, pos)
+		if prev_coords != atlas_coord:
+			block_carved.emit()
 	tilemap.set_cell(0, pos, 0, atlas_coord)
 
 
