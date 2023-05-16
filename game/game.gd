@@ -3,6 +3,7 @@ extends Node
 
 const PRL_SCREEN_MAIN = preload("res://gui/main_screen.tscn")
 const PRL_SCREEN_DIFFICULTY_CHOOSE = preload("res://gui/difficulty_choose_screen.tscn")
+const PRL_SCREEN_SCORE = preload("res://gui/score_screen.tscn")
 const PRL_CUTSCENE_INTRO = preload("res://cutscenes/intro_cutscene.tscn")
 const PRL_DIALOG_POST_INTRO = preload("res://dialogs/intro_post_cutscene_dialog.tscn")
 const PRL_LEVEL = preload("res://game/level.tscn")
@@ -12,10 +13,11 @@ const CARVING_SOUNDS: Array = [
 	preload("res://assets/sounds/carving/carving_2.wav"),
 	preload("res://assets/sounds/carving/carving_3.wav"),
 ]
-const STARTING_SCULPTURE_SOUND = preload("res://assets/sounds/starting_sculpture.wav")
-
+const PRL_SOUND_STARTING_SCULPTURE = preload("res://assets/sounds/starting_sculpture.wav")
+const PRL_MUSIC_MAIN_MENU = preload("res://assets/musics/main_menu_improvisation.ogg")
 const DIFFICULTY_DICTIONARY = {
-	Difficulty.NOVICE: {8: 5, 16: 1},
+	Difficulty.NOVICE: {8: 1},
+#	Difficulty.NOVICE: {8: 5, 16: 1},
 	Difficulty.NORMAL: {8: 6, 16: 2},
 	Difficulty.MADNESS: {8: 2, 16: 5, 24: 1},
 }
@@ -40,12 +42,13 @@ var _scores: PackedInt32Array = []
 func _ready():
 	cinematic_transition.duration_in = 0.8
 	cinematic_transition.duration_out = 0.8
-	music_player.play()
-	_curr_gui_element = PRL_SCREEN_MAIN.instantiate()
-	_curr_gui_element.button_play_pressed.connect(_on_button_play_pressed)
-	_curr_gui_element.button_settings_pressed.connect(_on_button_settings_pressed)
-	_curr_gui_element.button_credits_pressed.connect(_on_button_credits_pressed)
-	gui_layer.add_child(_curr_gui_element)
+	play_music(PRL_MUSIC_MAIN_MENU, true)
+	main_screen()
+#	_curr_gui_element = PRL_SCREEN_MAIN.instantiate()
+#	_curr_gui_element.button_play_pressed.connect(_on_button_play_pressed)
+#	_curr_gui_element.button_settings_pressed.connect(_on_button_settings_pressed)
+#	_curr_gui_element.button_credits_pressed.connect(_on_button_credits_pressed)
+#	gui_layer.add_child(_curr_gui_element)
 
 
 func _process(delta):
@@ -85,7 +88,7 @@ func start_match(difficulty: int):
 	var is_first: bool = true
 	for ref in refs_list:
 		print("Round started!")
-		play_sound(STARTING_SCULPTURE_SOUND)
+		play_sound(PRL_SOUND_STARTING_SCULPTURE)
 		_level.set_sculpture_data(ref)
 		if is_first:
 			_level.sculpture_block.enable_safe_regenerate(false)
@@ -99,14 +102,22 @@ func start_match(difficulty: int):
 	print("Match finished! Score: ", score)
 	_level.enable_edition(false)
 	_is_match_in_progress = false
+	cinematic_fade_out()
+	await cinematic_transition.finished
+	score_screen(score)
+	cinematic_fade_in()
 
 
-func play_sound(sound) -> void:
+func play_sound(sound, stop_previous: bool = false) -> void:
+	if stop_previous:
+		sound_player.stop()
 	sound_player.set_stream(sound)
 	sound_player.play()
 
 
-func play_music(music) -> void:
+func play_music(music, stop_previous: bool = false) -> void:
+	if stop_previous:
+		sound_player.stop()
 	music_player.set_stream(music)
 	music_player.play()
 
@@ -119,15 +130,35 @@ func generate_references_list(amounts: Dictionary = {}) -> Array[Dictionary]:
 		if not size in [8, 16, 24]:
 			continue
 		var count: int = amounts.get(size, 0)
+		print("Generating references list -> size: ", size, " - count: ", count)
 		if not count == 0:
 			var shuffled_indexes: Array = range(len(Sculptures.SCULPTURES[str(size) + "px"]))
 			shuffled_indexes.shuffle()
+			print("Shuffled indexes: ", shuffled_indexes)
 			for index in count:
 				var fixed_index: int = index
 				if index >= shuffled_indexes.size():
 					fixed_index = shuffled_indexes.pick_random()
+				print("Adding sculpture at ", fixed_index)
 				refs_list.append(Sculptures.get_sculpture_data(size, fixed_index))
 	return (refs_list)
+
+
+func main_screen() -> void:
+	_curr_gui_element = PRL_SCREEN_MAIN.instantiate()
+	_curr_gui_element.button_play_pressed.connect(_on_button_play_pressed)
+	_curr_gui_element.button_settings_pressed.connect(_on_button_settings_pressed)
+	_curr_gui_element.button_credits_pressed.connect(_on_button_credits_pressed)
+	gui_layer.add_child(_curr_gui_element)
+
+
+func score_screen(score: int) -> void:
+	if _curr_gui_element:
+		_curr_gui_element.queue_free()
+	_curr_gui_element = PRL_SCREEN_SCORE.instantiate()
+	# Falta fazer os connects
+	gui_layer.add_child(_curr_gui_element)
+	_curr_gui_element.set_score(score)
 
 
 func _on_button_play_pressed() -> void:
