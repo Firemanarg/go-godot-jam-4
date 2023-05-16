@@ -27,6 +27,7 @@ var grid_color: Color = Color(0.7, 0.7, 0.7)
 
 var _enable_edition: bool = true
 var _can_sculpt: bool = false
+var _safe_regenerate_enabled: bool = false
 
 @onready var tilemap = get_node("TileMap")
 @onready var area2d = get_node("Area2D")
@@ -49,7 +50,10 @@ func _ready():
 
 
 func _process(delta):
-	if _enable_edition and _can_sculpt:
+	var is_mouse_just_released: bool = Input.is_action_just_released("mouse_button_left")
+	if _safe_regenerate_enabled and is_mouse_just_released:
+		enable_safe_regenerate(false)
+	if not _safe_regenerate_enabled and _enable_edition and _can_sculpt:
 		var is_mouse_pressed: bool = Input.is_action_pressed("mouse_button_left")
 		var is_mouse_just_pressed: bool = Input.is_action_just_pressed("mouse_button_left")
 		if is_mouse_pressed or is_mouse_just_pressed:
@@ -85,14 +89,20 @@ func regenerate_block(id: SubBlockID = SubBlockID.GRAY):
 	for x in size.x:
 		for y in size.y:
 			set_sub_block(Vector2i(x, y), id)
+	enable_safe_regenerate()
 
 
 func get_used_pixels() -> Array[Vector2i]:
 	return (tilemap.get_used_cells(0))
 
 
+func enable_safe_regenerate(enable: bool = true) -> void:
+	_safe_regenerate_enabled = enable
+
+
 func enable_edition(is_enabled: bool = true):
 	_enable_edition = is_enabled
+	enable_safe_regenerate(false)
 	if not _enable_edition:
 		selector.visible = false
 
