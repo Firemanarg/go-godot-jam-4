@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bknkisotl22hq"]
+[gd_scene load_steps=6 format=3 uid="uid://bknkisotl22hq"]
 
 [ext_resource type="FontFile" uid="uid://xrwhd2utjvhn" path="res://assets/fonts/lt_sculpture.otf" id="1_2fu2c"]
 [ext_resource type="Texture2D" uid="uid://bbyrxcf3pp6dv" path="res://assets/images/sprites/button.png" id="2_chkyq"]
@@ -6,6 +6,8 @@
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2is4c"]
 texture = ExtResource("2_chkyq")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_scgav"]
 
 [node name="Button" type="Button"]
 custom_minimum_size = Vector2(200, 100)
@@ -24,6 +26,10 @@ theme_override_constants/outline_size = 9
 theme_override_fonts/font = ExtResource("1_2fu2c")
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxTexture_2is4c")
+theme_override_styles/hover = SubResource("StyleBoxTexture_2is4c")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_2is4c")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_2is4c")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_scgav")
 text = "button"
 script = ExtResource("3_i74el")
 
