@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://ccnoddphba1d"]
 
 [ext_resource type="Script" path="res://game/game.gd" id="1_l0vog"]
-[ext_resource type="PackedScene" path="res://gui/transitions/cinematic_transition.tscn" id="8_72qto"]
+[ext_resource type="PackedScene" uid="uid://b43byuaauvy65" path="res://gui/transitions/cinematic_transition.tscn" id="8_72qto"]
 [ext_resource type="AudioStream" uid="uid://pnjohquoawnn" path="res://assets/musics/main_menu_improvisation.ogg" id="9_ocbya"]
 
 [node name="Game" type="Node"]

@@ -1,4 +1,5 @@
 extends Node
+class_name Level
 
 
 signal block_carved
@@ -26,10 +27,13 @@ const SCULPTURE_SETTINGS: Dictionary = {
 @onready var reference = get_node("SculptureReference")
 @onready var sculpture = get_node("Sculpture")
 @onready var sculpture_block = get_node("Sculpture/SculptureBlock")
+@onready var label_timer = %LabelTimer
+@onready var label_name = %LabelSculptureName
+@onready var ref_visualizer = %SculptureReferenceVisualizer
 
 
 func _ready():
-	pass
+	ref_visualizer.set_reference(reference)
 
 
 func enable_edition(is_enabled: bool = true):
@@ -41,6 +45,7 @@ func set_sculpture_data(data: Dictionary) -> void:
 	sculpture_block.set_size(reference.size)
 	sculpture.position = SCULPTURE_SETTINGS[reference.size]["position"]
 	sculpture.scale = SCULPTURE_SETTINGS[reference.size]["scale"]
+	ref_visualizer.update()
 
 
 func get_score_percent() -> float:
@@ -91,6 +96,25 @@ func get_score_percent() -> float:
 	var percent: float = match_percent - unmatch_percent
 	percent = clamp(percent, 0.0, 1.0)
 	return (percent)
+
+
+func set_current_time(time: float = 0.0) -> void:
+	var seconds: int = fmod(time, 60.0)
+	var minutes: int = int(time / 60.0) % 60
+	label_timer.text = "%02d:%02d" % [minutes, seconds]
+
+
+func set_reference(reference = null) -> void:
+	ref_visualizer.set_reference(reference)
+	if reference == null:
+		return
+	label_name.text = reference.sculpture_name
+	set_current_time(reference.time)
+
+
+func update() -> void:
+	ref_visualizer.update()
+	label_name.text = ref_visualizer.reference.sculpture_name
 
 
 func _on_sculpture_block_block_carved():

@@ -17,6 +17,7 @@ func _process(delta):
 func update() -> void:
 	if not reference:
 		texture_rect.visible = false
+		print("reference is null")
 		return
 	texture_rect.visible = true
 	texture_rect.set_texture(reference.texture)

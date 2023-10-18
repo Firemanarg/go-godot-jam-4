@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://cscur2105wgk5"]
+[gd_scene load_steps=9 format=3 uid="uid://cscur2105wgk5"]
 
 [ext_resource type="Texture2D" uid="uid://bqhko2tkx4ru7" path="res://assets/images/background/museum_background.png" id="1_hsgjv"]
 [ext_resource type="Script" path="res://game/level.gd" id="1_l2vt4"]
 [ext_resource type="Texture2D" uid="uid://c6i8x5d7t37y3" path="res://assets/images/sprites/pedestal_long.png" id="2_vyppx"]
 [ext_resource type="PackedScene" uid="uid://b47aog6buqfrv" path="res://classes/sculpture_block/sculpture_block.tscn" id="3_lff2h"]
 [ext_resource type="PackedScene" uid="uid://b6q0fks7bmdxu" path="res://classes/sculpture_reference/sculpture_reference.tscn" id="4_xcgoh"]
+[ext_resource type="Script" path="res://gui/level_gui.gd" id="6_gdl37"]
+[ext_resource type="PackedScene" uid="uid://bgixtm14e06q" path="res://classes/sculpture_reference/sculpture_reference_visualizer.tscn" id="7_phlc2"]
+[ext_resource type="FontFile" uid="uid://xrwhd2utjvhn" path="res://assets/fonts/lt_sculpture.otf" id="8_xrqf0"]
 
 [node name="Level" type="Node"]
 script = ExtResource("1_l2vt4")
@@ -64,6 +67,75 @@ begin_cap_mode = 2
 end_cap_mode = 2
 
 [node name="SculptureReference" parent="." instance=ExtResource("4_xcgoh")]
+
+[node name="LevelGUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("6_gdl37")
+
+[node name="MarginContainer" type="MarginContainer" parent="LevelGUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="LevelGUI/MarginContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LevelGUI/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="SculptureReferenceVisualizer" parent="LevelGUI/MarginContainer/HBoxContainer/VBoxContainer" instance=ExtResource("7_phlc2")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+
+[node name="VisiblePivot" type="Node2D" parent="LevelGUI/MarginContainer/HBoxContainer/VBoxContainer/SculptureReferenceVisualizer"]
+position = Vector2(64, 125)
+
+[node name="LineAxisX" type="Line2D" parent="LevelGUI/MarginContainer/HBoxContainer/VBoxContainer/SculptureReferenceVisualizer/VisiblePivot"]
+points = PackedVector2Array(-15, 0, 15, 0)
+width = 2.0
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="LineAxisY" type="Line2D" parent="LevelGUI/MarginContainer/HBoxContainer/VBoxContainer/SculptureReferenceVisualizer/VisiblePivot"]
+points = PackedVector2Array(0, -10, 0, 10)
+width = 2.0
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="LabelSculptureName" type="Label" parent="LevelGUI/MarginContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("8_xrqf0")
+theme_override_font_sizes/font_size = 24
+text = "Toy 1"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LevelGUI/MarginContainer"]
+layout_mode = 2
+
+[node name="LabelTimer" type="Label" parent="LevelGUI/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("8_xrqf0")
+theme_override_font_sizes/font_size = 48
+text = "00:00"
+horizontal_alignment = 1
 
 [connection signal="block_carved" from="Sculpture/SculptureBlock" to="." method="_on_sculpture_block_block_carved"]
 

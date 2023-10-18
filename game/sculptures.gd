@@ -154,4 +154,5 @@ func get_sculpture_data(pixel_size: int, index: int) -> Dictionary:
 	if not pixel_size in [8, 16, 24]:
 		return ({})
 	var size_str: String = str(pixel_size) + "px"
+	print("SCULPTURES[%s][%d] = " % [size_str, index], SCULPTURES[size_str][index])
 	return (SCULPTURES[size_str][index])

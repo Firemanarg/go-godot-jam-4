@@ -325,6 +325,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_bottom = 20
 
 [node name="LabelTitle" type="Label" parent="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer2/TextureRect/MarginContainer"]
 layout_mode = 2
@@ -354,8 +355,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_top = 10
 
-[node name="LabelScore" type="Label" parent="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer2/TextureRect2/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer2/TextureRect2/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = -10
+alignment = 1
+
+[node name="LabelScore" type="Label" parent="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer2/TextureRect2/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -368,6 +375,18 @@ theme_override_font_sizes/font_size = 60
 text = "120000"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="LabelPercent" type="Label" parent="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer2/TextureRect2/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.247059, 0.247059, 0.247059, 1)
+theme_override_colors/font_shadow_color = Color(0.501961, 0.501961, 0.501961, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 1
+theme_override_fonts/font = ExtResource("4_hsa5y")
+theme_override_font_sizes/font_size = 24
+text = "100%"
+horizontal_alignment = 1
 
 [node name="VBoxContainer" type="HBoxContainer" parent="MarginContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2

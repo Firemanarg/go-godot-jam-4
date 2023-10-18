@@ -1,11 +1,13 @@
 extends Node
 
 
+signal screen_changed
+
 const PRL_SCREEN_MAIN = preload("res://gui/main_screen.tscn")
 const PRL_SCREEN_DIFFICULTY_CHOOSE = preload("res://gui/difficulty_choose_screen.tscn")
 const PRL_SCREEN_SCORE = preload("res://gui/score_screen.tscn")
 const PRL_CUTSCENE_INTRO = preload("res://cutscenes/intro_cutscene.tscn")
-const PRL_DIALOG_POST_INTRO = preload("res://dialogs/intro_post_cutscene_dialog.tscn")
+const PRL_DIALOG_INTRO = preload("res://dialogs/intro_post_cutscene_dialog.tscn")
 const PRL_LEVEL = preload("res://game/level.tscn")
 const PRL_LEVEL_GUI = preload("res://gui/level_gui.tscn")
 const CARVING_SOUNDS: Array = [
@@ -15,22 +17,35 @@ const CARVING_SOUNDS: Array = [
 ]
 const PRL_SOUND_STARTING_SCULPTURE = preload("res://assets/sounds/starting_sculpture.wav")
 const PRL_MUSIC_MAIN_MENU = preload("res://assets/musics/main_menu_improvisation.ogg")
-const DIFFICULTY_DICTIONARY = {
+const PRL_MUSIC_SCORE_DEFEAT = preload("res://assets/musics/defeat_music.ogg")
+const PRL_MUSIC_SCORE_VICTORY = preload("res://assets/musics/victory_music.ogg")
+const DIFFICULTY_DICTIONARY: Dictionary = {
 	Difficulty.NOVICE: {8: 1},
 #	Difficulty.NOVICE: {8: 5, 16: 1},
 	Difficulty.NORMAL: {8: 6, 16: 2},
 	Difficulty.MADNESS: {8: 2, 16: 5, 24: 1},
 }
+const DIFFICULTY_MULTIPLIER: Dictionary = {
+	Difficulty.NOVICE: 1.0,
+	Difficulty.NORMAL: 1.5,
+	Difficulty.MADNESS: 2.0,
+}
+const SIZE_MULTIPLIER: Dictionary = {
+	8: 5000,
+	16: 10000,
+	24: 15000,
+}
 
 enum Difficulty { NOVICE, NORMAL, MADNESS }
 
-var _curr_gui_element = null
-var _level = null
+var _curr_gui = null
+#var _level = null
 var _difficulty: int = Difficulty.NORMAL
 var _is_match_in_progress: bool = false
 
 var _refs_list: Array[Dictionary] = []
-var _scores: PackedInt32Array = []
+var _percents: PackedFloat32Array = []
+#var _scores: PackedInt32Array = []
 
 @onready var gui_layer = get_node("GUILayer")
 @onready var cinematic_transition = get_node("TransitionLayer/CinematicTransition")
@@ -42,30 +57,26 @@ var _scores: PackedInt32Array = []
 func _ready():
 	cinematic_transition.duration_in = 0.8
 	cinematic_transition.duration_out = 0.8
-	play_music(PRL_MUSIC_MAIN_MENU, true)
-	main_screen()
-#	_curr_gui_element = PRL_SCREEN_MAIN.instantiate()
-#	_curr_gui_element.button_play_pressed.connect(_on_button_play_pressed)
-#	_curr_gui_element.button_settings_pressed.connect(_on_button_settings_pressed)
-#	_curr_gui_element.button_credits_pressed.connect(_on_button_credits_pressed)
-#	gui_layer.add_child(_curr_gui_element)
+	_change_to_main_screen(true)
 
 
 func _process(delta):
-	if _is_match_in_progress:
-		_curr_gui_element.set_current_time(timer.time_left)
-	else:
-		if _curr_gui_element is Cutscene:
-			if Input.is_action_just_pressed("skip_cinematic"):
-				_curr_gui_element.skip()
-		elif _curr_gui_element is Dialog:
-			if Input.is_action_just_pressed("skip_cinematic"):
-				_curr_gui_element.skip(true)
-			elif Input.is_action_just_pressed("skip_dialog"):
-				_curr_gui_element.skip()
+	if _is_match_in_progress and _curr_gui:
+		if _curr_gui is Cutscene:
+			var skip: bool = Input.is_action_just_pressed("skip_cinematic")
+			if skip:
+				_curr_gui.skip()
+		elif _curr_gui is Dialog:
+			var skip_full: bool = Input.is_action_just_pressed("skip_cinematic")
+			var skip_step: bool = Input.is_action_just_pressed("skip_dialog")
+			if skip_full or skip_step:
+				_curr_gui.skip(skip_full)
+		elif _curr_gui is Level:
+			_curr_gui.set_current_time(timer.time_left)
 
 
 func cinematic_fade_in(duration: float = cinematic_transition.duration_in) -> void:
+	print("[func_call]: cinematic_fade_in")
 	cinematic_transition.visible = true
 	cinematic_transition.fade_in(duration)
 	await cinematic_transition.finished
@@ -73,158 +84,178 @@ func cinematic_fade_in(duration: float = cinematic_transition.duration_in) -> vo
 
 
 func cinematic_fade_out(duration: float = cinematic_transition.duration_out) -> void:
+	print("[func_call]: cinematic_fade_out")
 	cinematic_transition.visible = true
 	cinematic_transition.fade_out(duration)
 
 
-func start_match(difficulty: int):
-	var refs_list: Array[Dictionary] = generate_references_list(DIFFICULTY_DICTIONARY[_difficulty])
-	print("Difficulty dictionary: ", DIFFICULTY_DICTIONARY[_difficulty])
-	print("Refs list (", refs_list.size(), "): ", refs_list)
-	var score: int = 0
-	_is_match_in_progress = true
-	_level.enable_edition()
-	print("Match started!")
-	var is_first: bool = true
-	for ref in refs_list:
-		print("Round started!")
-		play_sound(PRL_SOUND_STARTING_SCULPTURE)
-		_level.set_sculpture_data(ref)
-		if is_first:
-			_level.sculpture_block.enable_safe_regenerate(false)
-			is_first = false
-		_curr_gui_element.update()
-		timer.start(_level.reference.time)
-		await timer.timeout
-		var round_score: int = _level.get_score_percent() * 10000
-		score += round_score
-		print("Round finished! Score: ", round_score)
-	print("Match finished! Score: ", score)
-	_level.enable_edition(false)
-	_is_match_in_progress = false
-	cinematic_fade_out()
-	await cinematic_transition.finished
-	score_screen(score)
-	cinematic_fade_in()
-
-
-func play_sound(sound, stop_previous: bool = false) -> void:
-	if stop_previous:
-		sound_player.stop()
-	sound_player.set_stream(sound)
-	sound_player.play()
-
-
 func play_music(music, stop_previous: bool = false) -> void:
-	if stop_previous:
-		sound_player.stop()
+	if music == null or stop_previous:
+		music_player.stop()
 	music_player.set_stream(music)
 	music_player.play()
 
 
-func generate_references_list(amounts: Dictionary = {}) -> Array[Dictionary]:
-	if amounts.is_empty():
+func change_screen(new_screen) -> void:
+	print()
+	print("[func_call]: change_screen(", new_screen, ")")
+	if new_screen == null:
+		return
+	if _curr_gui:
+		await cinematic_fade_out()
+#		cinematic_fade_out()
+#		await cinematic_transition.finished
+		if _curr_gui.has_signal("button_pressed"):
+			print("[state_bef]: connections of '", _curr_gui.button_pressed, "' -> ",
+					_curr_gui.button_pressed.get_connections())
+			for conn in _curr_gui.button_pressed.get_connections():
+				_curr_gui.button_pressed.disconnect(conn.get("callable"))
+			print("[state_aft]: connections of '", _curr_gui.button_pressed, "' -> ",
+					_curr_gui.button_pressed.get_connections())
+		_curr_gui.queue_free()
+	_curr_gui = new_screen
+	gui_layer.add_child(_curr_gui)
+	cinematic_fade_in()
+	print("[signal]: emitted '", screen_changed, "'")
+	screen_changed.emit()
+
+
+func get_random_refs(pixel_size: int, amount: int) -> Array[Dictionary]:
+	if not pixel_size in [8, 16, 24]:
 		return ([])
-	var refs_list: Array[Dictionary] = []
-	for size in amounts.keys():
-		if not size in [8, 16, 24]:
-			continue
-		var count: int = amounts.get(size, 0)
-		print("Generating references list -> size: ", size, " - count: ", count)
-		if not count == 0:
-			var shuffled_indexes: Array = range(len(Sculptures.SCULPTURES[str(size) + "px"]))
-			shuffled_indexes.shuffle()
-			print("Shuffled indexes: ", shuffled_indexes)
-			for index in count:
-				var fixed_index: int = index
-				if index >= shuffled_indexes.size():
-					fixed_index = shuffled_indexes.pick_random()
-				print("Adding sculpture at ", fixed_index)
-				refs_list.append(Sculptures.get_sculpture_data(size, fixed_index))
-	return (refs_list)
+	var refs: Array[Dictionary] = []
+	var sculptures: Array = Sculptures.SCULPTURES[str(pixel_size) + "px"]
+	refs.append_array(sculptures)
+	for i in range(clamp(amount - len(sculptures), 0, amount)):
+		refs.append(
+			Sculptures.get_sculpture_data(
+				pixel_size,
+				randi_range(0, len(sculptures))))
+	randomize()
+	refs.shuffle()
+	return (refs.slice(0, amount))
 
 
-func main_screen() -> void:
-	_curr_gui_element = PRL_SCREEN_MAIN.instantiate()
-	_curr_gui_element.button_play_pressed.connect(_on_button_play_pressed)
-	_curr_gui_element.button_settings_pressed.connect(_on_button_settings_pressed)
-	_curr_gui_element.button_credits_pressed.connect(_on_button_credits_pressed)
-	gui_layer.add_child(_curr_gui_element)
+func _randomize_refs() -> void:
+	var amounts: Dictionary = DIFFICULTY_DICTIONARY[_difficulty]
+	_refs_list = []
+	for pixel_size in amounts.keys():
+		var amount: int = amounts[pixel_size]
+		_refs_list.append_array(get_random_refs(pixel_size, amount))
 
 
-func score_screen(score: int) -> void:
-	if _curr_gui_element:
-		_curr_gui_element.queue_free()
-	_curr_gui_element = PRL_SCREEN_SCORE.instantiate()
-	# Falta fazer os connects
-	gui_layer.add_child(_curr_gui_element)
-	_curr_gui_element.set_score(score)
+func _change_to_main_screen(restart_music: bool = false) -> void:
+	print()
+	print("[func_call]: _change_to_main_screen(", restart_music, ")")
+	if restart_music:
+		play_music(PRL_MUSIC_MAIN_MENU, true)
+	await change_screen(PRL_SCREEN_MAIN.instantiate())
+	_curr_gui.button_pressed.connect(_on_main_screen_button_pressed)
 
 
-func _on_button_play_pressed() -> void:
-	print("Play")
-	cinematic_fade_out()
-	await cinematic_transition.finished
-	_curr_gui_element.queue_free()
-	_curr_gui_element = PRL_SCREEN_DIFFICULTY_CHOOSE.instantiate()
-	_curr_gui_element.button_novice_pressed.connect(_on_difficulty_choose.bind(Difficulty.NOVICE))
-	_curr_gui_element.button_normal_pressed.connect(_on_difficulty_choose.bind(Difficulty.NORMAL))
-	_curr_gui_element.button_madness_pressed.connect(_on_difficulty_choose.bind(Difficulty.MADNESS))
-	gui_layer.add_child(_curr_gui_element)
-	cinematic_fade_in()
-	pass
+func _on_main_screen_button_pressed(pressed_action: String) -> void:
+	print()
+	print("[func_call]: _on_main_screen_button_pressed(", pressed_action, ")")
+	match pressed_action:
+		"play":
+			await change_screen(PRL_SCREEN_DIFFICULTY_CHOOSE.instantiate())
+			_curr_gui.button_pressed.connect(_on_difficulty_choose_screen_button_pressed)
+			print("[connection]: ", _curr_gui.button_pressed, " <- ", _on_difficulty_choose_screen_button_pressed)
+		"settings": pass
+		"credits": pass
 
 
-func _on_button_settings_pressed() -> void:
-	print("Settings")
-	pass
+func _on_difficulty_choose_screen_button_pressed(pressed_action: String) -> void:
+	print()
+	print("[func_call]: _on_difficulty_choose_screen_button_pressed(", pressed_action, ")")
+	match pressed_action:
+		"choose_novice":
+			_start_match(Difficulty.NOVICE)
+		"choose_normal":
+			_start_match(Difficulty.NORMAL)
+		"choose_madness":
+			_start_match(Difficulty.MADNESS)
 
 
-func _on_button_credits_pressed() -> void:
-	print("Credits")
-	pass
-
-
-func _on_difficulty_choose(difficulty: int):
-	print("Difficulty: ", difficulty)
+func _start_match(difficulty: Difficulty) -> void:
+	print()
+	print("[func_call]: _start_match(", difficulty, ")")
 	_difficulty = difficulty
-	cinematic_fade_out()
-	await cinematic_transition.finished
-	music_player.stop()
-	_curr_gui_element.queue_free()
-	_curr_gui_element = PRL_CUTSCENE_INTRO.instantiate()
-	_curr_gui_element.finished.connect(_on_intro_cutscene_finished)
-	gui_layer.add_child(_curr_gui_element)
-	cinematic_fade_in()
-	_curr_gui_element.play()
+	_randomize_refs()
+	await change_screen(PRL_CUTSCENE_INTRO.instantiate())
+	_curr_gui.finished.connect(_on_intro_cutscene_finished)
+	print("[connection]: ", _curr_gui.finished, " <- ", _on_intro_cutscene_finished)
+	play_music(null)
+	_is_match_in_progress = true
+	_curr_gui.play()
 
 
 func _on_intro_cutscene_finished() -> void:
-	print("Cutscene finished!")
-	cinematic_fade_out()
-	await cinematic_transition.finished
-	_curr_gui_element.queue_free()
-	_curr_gui_element = PRL_DIALOG_POST_INTRO.instantiate()
-	_curr_gui_element.finished.connect(_on_dialog_post_intro_finished)
-	gui_layer.add_child(_curr_gui_element)
-	cinematic_fade_in()
-	_curr_gui_element.play()
+	print()
+	print("[func_call]: _on_intro_cutscene_finished")
+	await change_screen(PRL_DIALOG_INTRO.instantiate())
+	_curr_gui.finished.connect(_on_intro_dialog_finished)
+	print("[connection]: ", _curr_gui.finished, " <- ", _on_intro_dialog_finished)
+	_curr_gui.play()
 
 
-func _on_dialog_post_intro_finished() -> void:
-	print("Dialog finished!")
-	cinematic_fade_out()
-	await cinematic_transition.finished
-	_curr_gui_element.queue_free()
-	_level = PRL_LEVEL.instantiate()
-	_level.block_carved.connect(_on_block_carved)
-	gui_layer.add_child(_level)
-	_curr_gui_element = PRL_LEVEL_GUI.instantiate()
-	gui_layer.add_child(_curr_gui_element)
-	_curr_gui_element.set_reference(_level.reference)
-	cinematic_fade_in()
-	start_match(_difficulty)
+func _on_intro_dialog_finished() -> void:
+	print()
+	print("[func_call]: _on_intro_dialog_finished")
+	await change_screen(PRL_LEVEL.instantiate())
+	_on_level_started()
 
 
-func _on_block_carved() -> void:
-	play_sound(CARVING_SOUNDS.pick_random())
+func _on_level_started() -> void:
+	print()
+	print("[func_call]: _on_level_started")
+	_percents = []
+	for ref in _refs_list:
+		var time: float = ref["time"]
+		timer.start(time)
+		_curr_gui.set_sculpture_data(ref)
+		print("[info]: setting sculpture to ", ref["name"])
+		await timer.timeout
+		var percent: float = _curr_gui.get_score_percent()
+		print("[info] percent: ", percent)
+		_percents.append(percent)
+	print("[info]: level finished!")
+	await change_screen(PRL_SCREEN_SCORE.instantiate())
+	_on_score_screen()
+
+
+func _on_score_screen() -> void:
+	print()
+	print("[func_call]: _on_score_screen")
+	_curr_gui.button_pressed.connect(_on_score_screen_button_pressed)
+	print("[connection]: ", _curr_gui.button_pressed, " <- ", _on_score_screen_button_pressed)
+	var final_percent: float = 0.0
+	var final_score: int = 0
+	for percent in _percents:
+		final_percent += percent
+		final_score += percent * 10000
+	final_percent /= len(_percents)
+	_curr_gui.set_percent(final_percent)
+	_curr_gui.set_score(final_score)
+	if final_percent >= 0.8:
+		_curr_gui.play_victory_animation()
+		play_music(PRL_MUSIC_SCORE_VICTORY)
+	else:
+		_curr_gui.play_defeat_animation()
+		play_music(PRL_MUSIC_SCORE_DEFEAT)
+
+
+func _on_score_screen_button_pressed(pressed_action: String) -> void:
+	print()
+	print("[func_call]: _on_score_screen_button_pressed(", pressed_action, ")")
+	match pressed_action:
+		"play_again":
+			print("Play Again!")
+			_start_match(_difficulty)
+		"main_screen":
+			print("Returning to Main Screen!")
+			_change_to_main_screen(true)
+
+
+#func _on_block_carved() -> void:
+#	play_sound(CARVING_SOUNDS.pick_random())
