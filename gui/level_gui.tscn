@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://lkqy1mql8a40"]
+[gd_scene load_steps=6 format=3 uid="uid://lkqy1mql8a40"]
 
 [ext_resource type="PackedScene" uid="uid://bgixtm14e06q" path="res://classes/sculpture_reference/sculpture_reference_visualizer.tscn" id="1_5jfjn"]
 [ext_resource type="Script" path="res://gui/level_gui.gd" id="1_o45yi"]
 [ext_resource type="FontFile" uid="uid://xrwhd2utjvhn" path="res://assets/fonts/lt_sculpture.otf" id="2_bl8sa"]
+[ext_resource type="Texture2D" uid="uid://bmivk0kgo2pit" path="res://icon.svg" id="2_c6j0p"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ol207"]
 
 [node name="LevelGUI" type="Control"]
 layout_mode = 3
@@ -29,6 +32,55 @@ theme_override_constants/margin_bottom = 10
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 alignment = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(60, 200)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/HBoxContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="TextureButton" type="TextureButton" parent="MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture_normal = ExtResource("2_c6j0p")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="TextureButton2" type="TextureButton" parent="MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture_normal = ExtResource("2_c6j0p")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="TextureButton3" type="TextureButton" parent="MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture_normal = ExtResource("2_c6j0p")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="TextureButton4" type="TextureButton" parent="MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture_normal = ExtResource("2_c6j0p")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/separator = SubResource("StyleBoxEmpty_ol207")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
