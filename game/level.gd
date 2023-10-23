@@ -113,7 +113,8 @@ func set_reference(reference = null) -> void:
 	set_current_time(reference.time)
 
 
-func set_chisel(chisel: Chisel) -> void:
+func set_chisel(chisel) -> void:
+	print("[func_call]: set_chisel(", chisel, ")")
 	sculpture_block.curr_chisel = chisel
 
 
