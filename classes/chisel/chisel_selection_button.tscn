@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://h3k7jar8fv80"]
+
+[ext_resource type="Texture2D" uid="uid://bmivk0kgo2pit" path="res://icon.svg" id="1_qlysl"]
+[ext_resource type="Script" path="res://classes/chisel/chisel_selection_button.gd" id="2_pybvc"]
+
+[node name="ChiselSelectionButton" type="TextureButton"]
+custom_minimum_size = Vector2(50, 50)
+texture_normal = ExtResource("1_qlysl")
+ignore_texture_size = true
+stretch_mode = 5
+script = ExtResource("2_pybvc")
