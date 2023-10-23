@@ -39,12 +39,15 @@ func update() -> void:
 
 
 func _on_chisel_single_pixel_button_pressed() -> void:
-	chisel_selected.emit(chisel_single_pixel_button)
+	chisel_selected.emit(chisel_single_pixel_button.get_node("Chisel"))
+	print("[button_pressed]: chisel_single_pixel_button_pressed")
 
 
 func _on_chisel_cross_pixel_button_pressed() -> void:
-	chisel_selected.emit(chisel_cross_pixel_button)
+	chisel_selected.emit(chisel_cross_pixel_button.get_node("Chisel"))
+	print("[button_pressed]: chisel_cross_pixel_button_pressed")
 
 
 func _on_chisel_2x2_square_pixel_button_pressed() -> void:
-	chisel_selected.emit(chisel_2x2_square_pixel_button)
+	chisel_selected.emit(chisel_2x2_square_pixel_button.get_node("Chisel"))
+	print("[button_pressed]: chisel_2x2_square_pixel_button_pressed")

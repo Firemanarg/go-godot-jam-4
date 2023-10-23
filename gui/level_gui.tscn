@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://lkqy1mql8a40"]
+[gd_scene load_steps=8 format=3 uid="uid://lkqy1mql8a40"]
 
 [ext_resource type="PackedScene" uid="uid://bgixtm14e06q" path="res://classes/sculpture_reference/sculpture_reference_visualizer.tscn" id="1_5jfjn"]
 [ext_resource type="Script" path="res://gui/level_gui.gd" id="1_o45yi"]
 [ext_resource type="FontFile" uid="uid://xrwhd2utjvhn" path="res://assets/fonts/lt_sculpture.otf" id="2_bl8sa"]
 [ext_resource type="PackedScene" uid="uid://h3k7jar8fv80" path="res://classes/chisel/chisel_selection_button.tscn" id="2_w7orp"]
 [ext_resource type="PackedScene" uid="uid://b5yntcaw7n7u6" path="res://classes/chisel/chisel.tscn" id="3_fc1ls"]
+[ext_resource type="Texture2D" uid="uid://bmivk0kgo2pit" path="res://icon.svg" id="4_tklee"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ol207"]
 
@@ -30,6 +31,17 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="LabelTimer" type="Label" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_bl8sa")
+theme_override_font_sizes/font_size = 48
+text = "00:00"
+horizontal_alignment = 1
+
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 alignment = 2
@@ -50,23 +62,38 @@ theme_override_constants/margin_bottom = 5
 layout_mode = 2
 alignment = 1
 
-[node name="ChiselSinglePixelButton" parent="MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer2" instance=ExtResource("2_w7orp")]
+[node name="ChiselSinglePixelButton" parent="MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer2" node_paths=PackedStringArray("chisel") instance=ExtResource("2_w7orp")]
 layout_mode = 2
+texture_pressed = ExtResource("4_tklee")
+texture_hover = ExtResource("4_tklee")
+texture_disabled = ExtResource("4_tklee")
+texture_focused = ExtResource("4_tklee")
+chisel = NodePath("ChiselSinglePixel")
 
-[node name="Chisel" parent="MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer2/ChiselSinglePixelButton" instance=ExtResource("3_fc1ls")]
+[node name="ChiselSinglePixel" parent="MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer2/ChiselSinglePixelButton" instance=ExtResource("3_fc1ls")]
 affected_blocks = Array[Vector2i]([Vector2i(0, 0)])
 
-[node name="ChiselCrossPixelButton" parent="MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer2" instance=ExtResource("2_w7orp")]
+[node name="ChiselCrossPixelButton" parent="MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer2" node_paths=PackedStringArray("chisel") instance=ExtResource("2_w7orp")]
 layout_mode = 2
+texture_pressed = ExtResource("4_tklee")
+texture_hover = ExtResource("4_tklee")
+texture_disabled = ExtResource("4_tklee")
+texture_focused = ExtResource("4_tklee")
+chisel = NodePath("ChiselCrossPixel")
 
-[node name="Chisel" parent="MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer2/ChiselCrossPixelButton" instance=ExtResource("3_fc1ls")]
+[node name="ChiselCrossPixel" parent="MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer2/ChiselCrossPixelButton" instance=ExtResource("3_fc1ls")]
 affected_blocks = Array[Vector2i]([Vector2i(0, 0), Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)])
 
-[node name="Chisel2x2SquarePixelButton" parent="MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer2" instance=ExtResource("2_w7orp")]
+[node name="Chisel2x2SquarePixelButton" parent="MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer2" node_paths=PackedStringArray("chisel") instance=ExtResource("2_w7orp")]
 layout_mode = 2
+texture_pressed = ExtResource("4_tklee")
+texture_hover = ExtResource("4_tklee")
+texture_disabled = ExtResource("4_tklee")
+texture_focused = ExtResource("4_tklee")
+chisel = NodePath("Chisel2x2SquarePixel")
 
-[node name="Chisel" parent="MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer2/Chisel2x2SquarePixelButton" instance=ExtResource("3_fc1ls")]
-affected_blocks = Array[Vector2i]([Vector2i(0, 0), Vector2i(1, 0), Vector2i(0, -1), Vector2i(1, -1)])
+[node name="Chisel2x2SquarePixel" parent="MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer2/Chisel2x2SquarePixelButton" instance=ExtResource("3_fc1ls")]
+affected_blocks = Array[Vector2i]([Vector2i(0, 0), Vector2i(1, 0), Vector2i(0, 1), Vector2i(1, 1)])
 
 [node name="HSeparator" type="HSeparator" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
@@ -104,17 +131,6 @@ theme_override_font_sizes/font_size = 24
 text = "Toy 1"
 horizontal_alignment = 1
 autowrap_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
-layout_mode = 2
-
-[node name="LabelTimer" type="Label" parent="MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_bl8sa")
-theme_override_font_sizes/font_size = 48
-text = "00:00"
-horizontal_alignment = 1
 
 [connection signal="pressed" from="MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer2/ChiselSinglePixelButton" to="." method="_on_chisel_single_pixel_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer2/ChiselCrossPixelButton" to="." method="_on_chisel_cross_pixel_button_pressed"]
