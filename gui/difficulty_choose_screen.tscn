@@ -1,0 +1,128 @@
+[gd_scene load_steps=10 format=3 uid="uid://cidnoxgn8lc77"]
+
+[ext_resource type="FontFile" uid="uid://xrwhd2utjvhn" path="res://assets/fonts/lt_sculpture.otf" id="1_hp6yp"]
+[ext_resource type="Script" path="res://gui/difficulty_choose_screen.gd" id="1_jnl6q"]
+[ext_resource type="PackedScene" uid="uid://bknkisotl22hq" path="res://gui/button.tscn" id="2_5bbxd"]
+[ext_resource type="Texture2D" uid="uid://bqhko2tkx4ru7" path="res://assets/images/background/museum_background.png" id="2_p8kb4"]
+[ext_resource type="Texture2D" uid="uid://bbyrxcf3pp6dv" path="res://assets/images/sprites/button.png" id="3_1j74e"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oqrhr"]
+texture = ExtResource("3_1j74e")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kvsl1"]
+texture = ExtResource("3_1j74e")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_uon6t"]
+texture = ExtResource("3_1j74e")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g8ai4"]
+
+[node name="DifficultyChooseScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jnl6q")
+
+[node name="Background" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Background"]
+layout_mode = 0
+offset_left = -724.0
+offset_right = 1876.0
+offset_bottom = 1080.0
+texture = ExtResource("2_p8kb4")
+
+[node name="ColorRect" type="ColorRect" parent="Background"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.12549, 0.12549, 0.12549, 0.772549)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = -10
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(450, 200)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("3_1j74e")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LabelTitle" type="Label" parent="MarginContainer/VBoxContainer/TextureRect/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.486275, 0.486275, 0.486275, 0.74902)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/shadow_outline_size = 10
+theme_override_fonts/font = ExtResource("1_hp6yp")
+theme_override_font_sizes/font_size = 40
+text = "choose difficulty"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="ButtonNovice" parent="MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("2_5bbxd")]
+layout_mode = 2
+theme_override_styles/hover = SubResource("StyleBoxTexture_oqrhr")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_kvsl1")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_uon6t")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_g8ai4")
+text = "novice"
+
+[node name="ButtonNormal" parent="MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("2_5bbxd")]
+layout_mode = 2
+theme_override_styles/hover = SubResource("StyleBoxTexture_oqrhr")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_kvsl1")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_uon6t")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_g8ai4")
+text = "normal"
+
+[node name="ButtonMadness" parent="MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("2_5bbxd")]
+layout_mode = 2
+theme_override_styles/hover = SubResource("StyleBoxTexture_oqrhr")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_kvsl1")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_uon6t")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_g8ai4")
+text = "madness"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/ButtonNovice" to="." method="_on_button_novice_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/ButtonNormal" to="." method="_on_button_normal_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/ButtonMadness" to="." method="_on_button_madness_pressed"]

@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://bknkisotl22hq"]
+
+[ext_resource type="FontFile" uid="uid://xrwhd2utjvhn" path="res://assets/fonts/lt_sculpture.otf" id="1_2fu2c"]
+[ext_resource type="Texture2D" uid="uid://bbyrxcf3pp6dv" path="res://assets/images/sprites/button.png" id="2_chkyq"]
+[ext_resource type="Script" path="res://gui/button.gd" id="3_i74el"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2is4c"]
+texture = ExtResource("2_chkyq")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_scgav"]
+
+[node name="Button" type="Button"]
+custom_minimum_size = Vector2(200, 100)
+pivot_offset = Vector2(100, 50)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.12549, 0.12549, 0.12549, 1)
+theme_override_colors/font_pressed_color = Color(0.12549, 0.12549, 0.12549, 1)
+theme_override_colors/font_hover_color = Color(0.12549, 0.12549, 0.12549, 1)
+theme_override_colors/font_focus_color = Color(0.12549, 0.12549, 0.12549, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.12549, 0.12549, 0.12549, 1)
+theme_override_colors/font_disabled_color = Color(0.12549, 0.12549, 0.12549, 1)
+theme_override_colors/font_outline_color = Color(0.47451, 0.47451, 0.47451, 0.580392)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("1_2fu2c")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxTexture_2is4c")
+theme_override_styles/hover = SubResource("StyleBoxTexture_2is4c")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_2is4c")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_2is4c")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_scgav")
+text = "button"
+script = ExtResource("3_i74el")
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

@@ -1,0 +1,430 @@
+[gd_scene load_steps=18 format=3 uid="uid://cqp3ng1478jm"]
+
+[ext_resource type="Script" path="res://gui/score_screen.gd" id="1_6qkxb"]
+[ext_resource type="Texture2D" uid="uid://bqhko2tkx4ru7" path="res://assets/images/background/museum_background.png" id="2_p1u0b"]
+[ext_resource type="Texture2D" uid="uid://bbyrxcf3pp6dv" path="res://assets/images/sprites/button.png" id="3_onu3q"]
+[ext_resource type="FontFile" uid="uid://xrwhd2utjvhn" path="res://assets/fonts/lt_sculpture.otf" id="4_hsa5y"]
+[ext_resource type="PackedScene" uid="uid://bknkisotl22hq" path="res://gui/button.tscn" id="5_1etyw"]
+[ext_resource type="Texture2D" uid="uid://blgrod2kpd4fa" path="res://assets/images/sprites/main_character/parts/main_character_faceless.png" id="6_h0xrq"]
+[ext_resource type="Texture2D" uid="uid://5nhh8qt4iskq" path="res://assets/images/sprites/main_character/parts/main_character_mouth_scaried.png" id="7_ujhj7"]
+[ext_resource type="Texture2D" uid="uid://cl8nfbps6b6bt" path="res://assets/images/sprites/main_character/parts/main_character_eyes_big_scaried.png" id="8_3upxj"]
+[ext_resource type="Texture2D" uid="uid://c22sujk66i3l" path="res://assets/images/sprites/main_character/parts/main_character_eyebrows_scaried.png" id="9_7s0y4"]
+[ext_resource type="Texture2D" uid="uid://bbw8q0o4eh02w" path="res://assets/images/sprites/main_character/parts/main_character_mouth_big_smile.png" id="10_x5lvk"]
+[ext_resource type="Texture2D" uid="uid://cajsh5bvhxd44" path="res://assets/images/sprites/main_character/parts/main_character_eyes_regular.png" id="11_08m2m"]
+[ext_resource type="Texture2D" uid="uid://bg6fhb0f54wl5" path="res://assets/images/sprites/main_character/parts/main_character_eyebrows_regular.png" id="12_ofjs8"]
+[ext_resource type="Texture2D" uid="uid://x0ihl8jtt6mu" path="res://assets/images/sprites/main_character/parts/main_character_eyes_closed.png" id="15_8u32l"]
+
+[sub_resource type="Animation" id="Animation_84j6k"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("6_h0xrq")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Mouth:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_ujhj7")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Eyes:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("8_3upxj")]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Eyebrows:texture")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("9_7s0y4")]
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".:scale:x")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0.3, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/6/type = "bezier"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath(".:scale:y")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0.3, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_xeeol"]
+resource_name = "defeat"
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("6_h0xrq")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Mouth:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_ujhj7")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Eyes:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("15_8u32l")]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Eyebrows:texture")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("12_ofjs8")]
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(-0.0523599, -0.25, 0, 0.25, 0, 0.0523599, -0.25, 0, 0.25, 0, -0.0523599, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.6, 1.2)
+}
+
+[sub_resource type="Animation" id="Animation_l6is2"]
+resource_name = "victory"
+length = 2.4
+loop_mode = 1
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("6_h0xrq")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Mouth:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("10_x5lvk")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Eyes:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("11_08m2m")]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Eyebrows:texture")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("9_7s0y4")]
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(-0.10472, -0.25, 0, 0.25, 0, 0.10472, -0.25, 0, 0.25, 0, -0.10472, -0.25, 0, 0.25, 0, 0.10472, -0.25, 0, 0.25, 0, -0.10472, -0.25, 0, 0.25, 0, 0.10472, -0.25, 0, 0.25, 0, -0.10472, -0.25, 0, 0.25, 0, 0.10472, -0.25, 0, 0.25, 0, -0.10472, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9, 1.2, 1.5, 1.8, 2.1, 2.4)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".:scale:x")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(0.3, -0.25, 0, 0.25, 0, 0.3, -0.25, 0, 0.25, 0, -0.3, -0.25, 0, 0.25, 0, -0.3, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1.2, 1.21, 2.4)
+}
+tracks/6/type = "bezier"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath(".:scale:y")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(0.3, -0.25, 0, 0.25, 0, 0.3, -0.25, 0, 0.25, 0, 0.3, -0.25, 0, 0.25, 0, 0.3, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1.2, 1.21, 2.4)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v17or"]
+_data = {
+"RESET": SubResource("Animation_84j6k"),
+"defeat": SubResource("Animation_xeeol"),
+"victory": SubResource("Animation_l6is2")
+}
+
+[node name="ScoreScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6qkxb")
+
+[node name="Background" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Background"]
+layout_mode = 0
+offset_left = -724.0
+offset_right = 1876.0
+offset_bottom = 1080.0
+texture = ExtResource("2_p1u0b")
+
+[node name="ColorRect" type="ColorRect" parent="Background"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.12549, 0.12549, 0.12549, 0.772549)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 40
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = -55
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(450, 150)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("3_onu3q")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer2/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_bottom = 20
+
+[node name="LabelTitle" type="Label" parent="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer2/TextureRect/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.486275, 0.486275, 0.486275, 0.74902)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/shadow_outline_size = 10
+theme_override_fonts/font = ExtResource("4_hsa5y")
+theme_override_font_sizes/font_size = 40
+text = "score"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect2" type="TextureRect" parent="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(450, 200)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("3_onu3q")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer2/TextureRect2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer2/TextureRect2/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = -10
+alignment = 1
+
+[node name="LabelScore" type="Label" parent="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer2/TextureRect2/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.486275, 0.486275, 0.486275, 0.74902)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/shadow_outline_size = 10
+theme_override_fonts/font = ExtResource("4_hsa5y")
+theme_override_font_sizes/font_size = 60
+text = "120000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelPercent" type="Label" parent="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer2/TextureRect2/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.247059, 0.247059, 0.247059, 1)
+theme_override_colors/font_shadow_color = Color(0.501961, 0.501961, 0.501961, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 1
+theme_override_fonts/font = ExtResource("4_hsa5y")
+theme_override_font_sizes/font_size = 24
+text = "100%"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="HBoxContainer" parent="MarginContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="ButtonPlayAgain" parent="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer" instance=ExtResource("5_1etyw")]
+unique_name_in_owner = true
+layout_mode = 2
+text = "play again"
+
+[node name="ButtonReturn" parent="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer" instance=ExtResource("5_1etyw")]
+unique_name_in_owner = true
+layout_mode = 2
+text = "return to
+main screen"
+
+[node name="MainCharacter" type="Node2D" parent="."]
+z_index = 1
+position = Vector2(150, 450)
+scale = Vector2(0.3, 0.3)
+
+[node name="Body" type="Sprite2D" parent="MainCharacter"]
+texture = ExtResource("6_h0xrq")
+
+[node name="Mouth" type="Sprite2D" parent="MainCharacter"]
+texture = ExtResource("7_ujhj7")
+
+[node name="Eyes" type="Sprite2D" parent="MainCharacter"]
+texture = ExtResource("8_3upxj")
+
+[node name="Eyebrows" type="Sprite2D" parent="MainCharacter"]
+texture = ExtResource("9_7s0y4")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MainCharacter"]
+libraries = {
+"": SubResource("AnimationLibrary_v17or")
+}
+
+[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/ButtonPlayAgain" to="." method="_on_button_play_again_pressed"]
+[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/ButtonReturn" to="." method="_on_button_return_main_screen_pressed"]

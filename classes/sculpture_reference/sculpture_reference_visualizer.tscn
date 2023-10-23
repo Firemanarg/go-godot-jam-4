@@ -23,7 +23,7 @@ shader_parameter/columns = 40.0
 shader_parameter/rows = 40.0
 shader_parameter/influence = 0.3
 shader_parameter/line_color = Color(1, 1, 1, 1)
-shader_parameter/line_thickness = 0.153
+shader_parameter/line_thickness = 0.05
 shader_parameter/blend_influence = 0.25
 
 [node name="SculptureReferenceVisualizer" type="Panel"]

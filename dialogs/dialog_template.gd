@@ -30,100 +30,6 @@ var _tween_in_progress: bool = false
 
 
 func _ready():
-	dialogs = [
-		{
-			"visible_actors": PackedStringArray(["MainCharacter"]),
-			"actors_animations": {"MainCharacter": "scaried_shaking"},
-			"visible_backgrounds": PackedStringArray(["DestroyedMuseum"]),
-			"text": "Oh no, what have I done?",
-			"side": Side.RIGHT,
-		},
-		{
-			"visible_actors": PackedStringArray(["MainCharacter"]),
-			"actors_animations": {"MainCharacter": "scaried_shaking"},
-			"visible_backgrounds": PackedStringArray(["DestroyedMuseum"]),
-			"text": "All the sculptures are broken!",
-			"side": Side.RIGHT,
-		},
-		{
-			"visible_actors": PackedStringArray(["MainCharacter"]),
-			"actors_animations": {"MainCharacter": "scaried"},
-			"visible_backgrounds": PackedStringArray(["DestroyedMuseum"]),
-			"text": "What am I supposed to do now?",
-			"side": Side.RIGHT,
-		},
-		{
-			"visible_actors": PackedStringArray(["MainCharacter"]),
-			"actors_animations": {"MainCharacter": "neutral"},
-			"visible_backgrounds": PackedStringArray(["DestroyedMuseum"]),
-			"text": "I have to find a solution before the museum opens!",
-			"side": Side.RIGHT,
-		},
-		{
-			"visible_actors": PackedStringArray(["MainCharacter"]),
-			"actors_animations": {"MainCharacter": "thinking"},
-			"visible_backgrounds": PackedStringArray(["DestroyedMuseum"]),
-			"text": "Think, think, think...",
-			"side": Side.RIGHT,
-		},
-		{
-			"visible_actors": PackedStringArray(["MainCharacter"]),
-			"actors_animations": {"MainCharacter": "thinking"},
-			"visible_backgrounds": PackedStringArray(["DestroyedMuseum"]),
-			"text": "I know what to do!",
-			"side": Side.RIGHT,
-		},
-		{
-			"visible_actors": PackedStringArray(["MainCharacter"]),
-			"actors_animations": {"MainCharacter": "thinking"},
-			"visible_backgrounds": PackedStringArray(["DestroyedMuseum"]),
-			"text": "All I have to do is carve a copy of each sculpture that I broke!",
-			"side": Side.RIGHT,
-		},
-		{
-			"visible_actors": PackedStringArray(["MainCharacter"]),
-			"actors_animations": {"MainCharacter": "thinking"},
-			"visible_backgrounds": PackedStringArray(["DestroyedMuseum"]),
-			"text": "The fewer mistakes I have, the more alike they will become.",
-			"side": Side.RIGHT,
-		},
-		{
-			"visible_actors": PackedStringArray(["MainCharacter"]),
-			"actors_animations": {"MainCharacter": "thinking"},
-			"visible_backgrounds": PackedStringArray(["DestroyedMuseum"]),
-			"text": "After all, less is more!",
-			"side": Side.RIGHT,
-		},
-		{
-			"visible_actors": PackedStringArray(["MainCharacter"]),
-			"actors_animations": {"MainCharacter": "thinking"},
-			"visible_backgrounds": PackedStringArray(["DestroyedMuseum"]),
-			"text": "But what if someone notices? I'll lose my job!",
-			"side": Side.RIGHT,
-		},
-		{
-			"visible_actors": PackedStringArray(["MainCharacter"]),
-			"actors_animations": {"MainCharacter": "thinking"},
-			"visible_backgrounds": PackedStringArray(["DestroyedMuseum"]),
-			"text": "Will I be able to do it? I've never carved anything before...",
-			"side": Side.RIGHT,
-		},
-		{
-			"visible_actors": PackedStringArray(["MainCharacter"]),
-			"actors_animations": {"MainCharacter": "thinking"},
-			"visible_backgrounds": PackedStringArray(["DestroyedMuseum"]),
-			"text": "I only have until 6:00 am to finish...",
-			"side": Side.RIGHT,
-		},
-		{
-			"visible_actors": PackedStringArray(["MainCharacter"]),
-			"actors_animations": {"MainCharacter": "thinking"},
-			"visible_backgrounds": PackedStringArray(["DestroyedMuseum"]),
-			"text": "I think I can do it!",
-			"side": Side.RIGHT,
-		},
-	]
-#	play_curr_dialog()
 	pass
 
 
@@ -161,6 +67,7 @@ func skip(full_skip: bool = false) -> void:
 		finished.emit()
 		return
 	if _tween_in_progress:
+		print("skipping with _tween_in_progress")
 		_curr_dialog_index += 1
 		_curr_tween.kill()
 		var label = label_text[_dialog_side]
@@ -169,7 +76,10 @@ func skip(full_skip: bool = false) -> void:
 		label_continue[Side.RIGHT].visible = true
 		_tween_in_progress = false
 	else:
+		print("skipping with not _tween_in_progress")
+		print("_curr_dialog_index == dialogs.size() -> ", _curr_dialog_index == dialogs.size())
 		if _curr_dialog_index == dialogs.size():
+			print("[skip()] finishing dialog because is at last dialog index")
 			finished.emit()
 		else:
 			play_curr_dialog()
@@ -224,6 +134,7 @@ func _on_tween_finished():
 	label_continue[Side.LEFT].visible = true
 	label_continue[Side.RIGHT].visible = true
 	_tween_in_progress = false
+#	if _curr_dialog_index == dialogs.size():
+#		print("[_on_tween_finished()] finishing dialog because is at last dialog index")
+#		finished.emit()
 	_curr_dialog_index += 1
-	if _curr_dialog_index == dialogs.size():
-		finished.emit()

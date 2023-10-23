@@ -1,0 +1,129 @@
+[gd_scene load_steps=10 format=3 uid="uid://c7itap4jsoxpu"]
+
+[ext_resource type="FontFile" uid="uid://xrwhd2utjvhn" path="res://assets/fonts/lt_sculpture.otf" id="1_3t1qq"]
+[ext_resource type="Script" path="res://gui/main_screen.gd" id="1_evoey"]
+[ext_resource type="Texture2D" uid="uid://bbyrxcf3pp6dv" path="res://assets/images/sprites/button.png" id="2_2xemy"]
+[ext_resource type="PackedScene" uid="uid://bknkisotl22hq" path="res://gui/button.tscn" id="2_4flo5"]
+[ext_resource type="Texture2D" uid="uid://bqhko2tkx4ru7" path="res://assets/images/background/museum_background.png" id="2_t86sx"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f2gst"]
+texture = ExtResource("2_2xemy")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rugst"]
+texture = ExtResource("2_2xemy")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ycm00"]
+texture = ExtResource("2_2xemy")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vs7fk"]
+
+[node name="MainScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_evoey")
+
+[node name="Background" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Background"]
+layout_mode = 0
+offset_left = -724.0
+offset_right = 1876.0
+offset_bottom = 1080.0
+texture = ExtResource("2_t86sx")
+
+[node name="ColorRect" type="ColorRect" parent="Background"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.12549, 0.12549, 0.12549, 0.772549)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = -10
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(600, 250)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("2_2xemy")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LabelTitle" type="Label" parent="MarginContainer/VBoxContainer/TextureRect/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.486275, 0.486275, 0.486275, 0.74902)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/shadow_outline_size = 10
+theme_override_fonts/font = ExtResource("1_3t1qq")
+theme_override_font_sizes/font_size = 54
+text = "MASTERPIECE
+MADNESS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="ButtonPlay" parent="MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("2_4flo5")]
+layout_mode = 2
+theme_override_styles/hover = SubResource("StyleBoxTexture_f2gst")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_rugst")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_ycm00")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_vs7fk")
+text = "play"
+
+[node name="ButtonSettings" parent="MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("2_4flo5")]
+layout_mode = 2
+theme_override_styles/hover = SubResource("StyleBoxTexture_f2gst")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_rugst")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_ycm00")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_vs7fk")
+text = "settings"
+
+[node name="ButtonCredits" parent="MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("2_4flo5")]
+layout_mode = 2
+theme_override_styles/hover = SubResource("StyleBoxTexture_f2gst")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_rugst")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_ycm00")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_vs7fk")
+text = "credits"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/ButtonPlay" to="." method="_on_button_play_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/ButtonSettings" to="." method="_on_button_settings_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/ButtonCredits" to="." method="_on_button_credits_pressed"]
