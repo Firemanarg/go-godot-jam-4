@@ -1,6 +1,9 @@
 extends TextureButton
 
 
+@export var chisel: Chisel = null
+
+
 func _ready() -> void:
 	pass
 
