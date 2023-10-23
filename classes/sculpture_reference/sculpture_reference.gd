@@ -9,7 +9,6 @@ var size: Vector2i = Vector2i(0, 0)
 var used_pixels: Array[Vector2i] = []
 
 
-
 func _ready():
 	pass
 
