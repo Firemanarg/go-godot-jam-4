@@ -69,5 +69,6 @@ end_cap_mode = 2
 [node name="LevelGUI" parent="." instance=ExtResource("6_gf0kj")]
 
 [connection signal="block_carved" from="Sculpture/SculptureBlock" to="." method="_on_sculpture_block_block_carved"]
+[connection signal="chisel_selected" from="LevelGUI" to="." method="set_chisel"]
 
 [editable path="Sculpture/SculptureBlock"]
