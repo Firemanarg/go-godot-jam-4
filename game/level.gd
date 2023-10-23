@@ -27,9 +27,10 @@ const SCULPTURE_SETTINGS: Dictionary = {
 @onready var reference = get_node("SculptureReference")
 @onready var sculpture = get_node("Sculpture")
 @onready var sculpture_block = get_node("Sculpture/SculptureBlock")
-@onready var label_timer = %LabelTimer
-@onready var label_name = %LabelSculptureName
-@onready var ref_visualizer = %SculptureReferenceVisualizer
+@onready var gui = get_node("LevelGUI")
+@onready var label_timer = gui.label_timer
+@onready var label_name = gui.label_name
+@onready var ref_visualizer = gui.ref_visualizer
 
 
 func _ready():
@@ -110,6 +111,10 @@ func set_reference(reference = null) -> void:
 		return
 	label_name.text = reference.sculpture_name
 	set_current_time(reference.time)
+
+
+func set_chisel(chisel: Chisel) -> void:
+	sculpture_block.curr_chisel = chisel
 
 
 func update() -> void:

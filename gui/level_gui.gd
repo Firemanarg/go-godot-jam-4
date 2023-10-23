@@ -1,10 +1,15 @@
 extends Control
 
 
+signal chisel_selected(chisel)
+
 @onready var label_timer = %LabelTimer
 @onready var label_name = %LabelSculptureName
 @onready var ref_visualizer = %SculptureReferenceVisualizer
 
+@onready var chisel_single_pixel_button = get_node("MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer2/ChiselSinglePixelButton")
+@onready var chisel_cross_pixel_button = get_node("MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer2/ChiselCrossPixelButton")
+@onready var chisel_2x2_square_pixel_button = get_node("MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer2/Chisel2x2SquarePixelButton")
 
 func _ready():
 	pass
@@ -31,3 +36,15 @@ func set_reference(reference = null) -> void:
 func update() -> void:
 	ref_visualizer.update()
 	label_name.text = ref_visualizer.reference.sculpture_name
+
+
+func _on_chisel_single_pixel_button_pressed() -> void:
+	chisel_selected.emit(chisel_single_pixel_button)
+
+
+func _on_chisel_cross_pixel_button_pressed() -> void:
+	chisel_selected.emit(chisel_cross_pixel_button)
+
+
+func _on_chisel_2x2_square_pixel_button_pressed() -> void:
+	chisel_selected.emit(chisel_2x2_square_pixel_button)
