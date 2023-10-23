@@ -96,6 +96,13 @@ func play_music(music, stop_previous: bool = false) -> void:
 	music_player.play()
 
 
+func play_sound(sound, stop_previous: bool = false) -> void:
+	if sound == null or stop_previous:
+		sound_player.stop()
+	sound_player.set_stream(sound)
+	sound_player.play()
+
+
 func change_screen(new_screen) -> void:
 	print()
 	print("[func_call]: change_screen(", new_screen, ")")
@@ -209,6 +216,7 @@ func _on_intro_dialog_finished() -> void:
 func _on_level_started() -> void:
 	print()
 	print("[func_call]: _on_level_started")
+	_curr_gui.block_carved.connect(_on_block_carved)
 	_percents = []
 	for ref in _refs_list:
 		var time: float = ref["time"]
@@ -257,5 +265,5 @@ func _on_score_screen_button_pressed(pressed_action: String) -> void:
 			_change_to_main_screen(true)
 
 
-#func _on_block_carved() -> void:
-#	play_sound(CARVING_SOUNDS.pick_random())
+func _on_block_carved() -> void:
+	play_sound(CARVING_SOUNDS.pick_random())
