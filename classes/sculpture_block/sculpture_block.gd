@@ -25,6 +25,8 @@ var selector_size: Vector2 = Vector2(16, 16)
 
 var grid_color: Color = Color(0.7, 0.7, 0.7)
 
+var curr_chisel: Chisel = null
+
 var _enable_edition: bool = true
 var _can_sculpt: bool = false
 var _safe_regenerate_enabled: bool = false
@@ -59,8 +61,11 @@ func _process(delta):
 		if is_mouse_pressed or is_mouse_just_pressed:
 			var mouse_pos: Vector2 = to_local(get_global_mouse_position())
 			var map_pos: Vector2i = tilemap.local_to_map(mouse_pos)
-			var fixed_map_pos: Vector2i = map_pos + Vector2i(size.x / 2.0, size.y)
-			set_sub_block(fixed_map_pos, SubBlockID.EMPTY)
+			if curr_chisel:
+				for offset in curr_chisel.affected_blocks:
+					var pos: Vector2i = map_pos + offset
+					var fixed_map_pos: Vector2i = pos + Vector2i(size.x / 2.0, size.y)
+					set_sub_block(fixed_map_pos, SubBlockID.EMPTY)
 
 
 func set_size(new_size: Vector2i):
