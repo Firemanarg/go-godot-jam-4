@@ -5,7 +5,14 @@
 
 [node name="ChiselSelectionButton" type="TextureButton"]
 custom_minimum_size = Vector2(50, 50)
+pivot_offset = Vector2(25, 25)
+mouse_default_cursor_shape = 2
 texture_normal = ExtResource("1_qlysl")
 ignore_texture_size = true
 stretch_mode = 5
 script = ExtResource("2_pybvc")
+
+[connection signal="button_down" from="." to="." method="_on_button_down"]
+[connection signal="button_up" from="." to="." method="_on_button_up"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

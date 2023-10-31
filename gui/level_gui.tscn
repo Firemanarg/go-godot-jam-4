@@ -1,11 +1,23 @@
-[gd_scene load_steps=8 format=3 uid="uid://lkqy1mql8a40"]
+[gd_scene load_steps=11 format=3 uid="uid://lkqy1mql8a40"]
 
 [ext_resource type="PackedScene" uid="uid://bgixtm14e06q" path="res://classes/sculpture_reference/sculpture_reference_visualizer.tscn" id="1_5jfjn"]
 [ext_resource type="Script" path="res://gui/level_gui.gd" id="1_o45yi"]
 [ext_resource type="FontFile" uid="uid://xrwhd2utjvhn" path="res://assets/fonts/lt_sculpture.otf" id="2_bl8sa"]
 [ext_resource type="PackedScene" uid="uid://h3k7jar8fv80" path="res://classes/chisel/chisel_selection_button.tscn" id="2_w7orp"]
 [ext_resource type="PackedScene" uid="uid://b5yntcaw7n7u6" path="res://classes/chisel/chisel.tscn" id="3_fc1ls"]
-[ext_resource type="Texture2D" uid="uid://bmivk0kgo2pit" path="res://icon.svg" id="4_tklee"]
+[ext_resource type="Texture2D" uid="uid://2dxyommkx6e1" path="res://assets/images/sprites/chisel_buttons_normal.png" id="4_q8ye0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wrfxc"]
+atlas = ExtResource("4_q8ye0")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l6hlf"]
+atlas = ExtResource("4_q8ye0")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1n76v"]
+atlas = ExtResource("4_q8ye0")
+region = Rect2(192, 0, 64, 64)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ol207"]
 
@@ -64,10 +76,11 @@ alignment = 1
 
 [node name="ChiselSinglePixelButton" parent="MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer2" node_paths=PackedStringArray("chisel") instance=ExtResource("2_w7orp")]
 layout_mode = 2
-texture_pressed = ExtResource("4_tklee")
-texture_hover = ExtResource("4_tklee")
-texture_disabled = ExtResource("4_tklee")
-texture_focused = ExtResource("4_tklee")
+texture_normal = SubResource("AtlasTexture_wrfxc")
+texture_pressed = SubResource("AtlasTexture_wrfxc")
+texture_hover = SubResource("AtlasTexture_wrfxc")
+texture_disabled = SubResource("AtlasTexture_wrfxc")
+texture_focused = SubResource("AtlasTexture_wrfxc")
 chisel = NodePath("ChiselSinglePixel")
 
 [node name="ChiselSinglePixel" parent="MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer2/ChiselSinglePixelButton" instance=ExtResource("3_fc1ls")]
@@ -75,10 +88,11 @@ affected_blocks = Array[Vector2i]([Vector2i(0, 0)])
 
 [node name="ChiselCrossPixelButton" parent="MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer2" node_paths=PackedStringArray("chisel") instance=ExtResource("2_w7orp")]
 layout_mode = 2
-texture_pressed = ExtResource("4_tklee")
-texture_hover = ExtResource("4_tklee")
-texture_disabled = ExtResource("4_tklee")
-texture_focused = ExtResource("4_tklee")
+texture_normal = SubResource("AtlasTexture_l6hlf")
+texture_pressed = SubResource("AtlasTexture_l6hlf")
+texture_hover = SubResource("AtlasTexture_l6hlf")
+texture_disabled = SubResource("AtlasTexture_l6hlf")
+texture_focused = SubResource("AtlasTexture_l6hlf")
 chisel = NodePath("ChiselCrossPixel")
 
 [node name="ChiselCrossPixel" parent="MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer2/ChiselCrossPixelButton" instance=ExtResource("3_fc1ls")]
@@ -86,10 +100,11 @@ affected_blocks = Array[Vector2i]([Vector2i(0, 0), Vector2i(1, 0), Vector2i(-1, 
 
 [node name="Chisel2x2SquarePixelButton" parent="MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer2" node_paths=PackedStringArray("chisel") instance=ExtResource("2_w7orp")]
 layout_mode = 2
-texture_pressed = ExtResource("4_tklee")
-texture_hover = ExtResource("4_tklee")
-texture_disabled = ExtResource("4_tklee")
-texture_focused = ExtResource("4_tklee")
+texture_normal = SubResource("AtlasTexture_1n76v")
+texture_pressed = SubResource("AtlasTexture_1n76v")
+texture_hover = SubResource("AtlasTexture_1n76v")
+texture_disabled = SubResource("AtlasTexture_1n76v")
+texture_focused = SubResource("AtlasTexture_1n76v")
 chisel = NodePath("Chisel2x2SquarePixel")
 
 [node name="Chisel2x2SquarePixel" parent="MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer2/Chisel2x2SquarePixelButton" instance=ExtResource("3_fc1ls")]
