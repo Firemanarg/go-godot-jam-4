@@ -53,6 +53,7 @@ var _percents: PackedFloat32Array = []
 @onready var music_player = get_node("MusicStreamPlayer")
 @onready var sound_player = get_node("SoundStreamPlayer")
 
+@onready var test_chisel = get_node("TestChisel")
 
 func _ready():
 	cinematic_transition.duration_in = 0.8

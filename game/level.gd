@@ -35,6 +35,9 @@ const SCULPTURE_SETTINGS: Dictionary = {
 
 func _ready():
 	ref_visualizer.set_reference(reference)
+	set_chisel(
+		gui.chisel_single_pixel_button.chisel
+	)
 
 
 func enable_edition(is_enabled: bool = true):
@@ -114,7 +117,6 @@ func set_reference(reference = null) -> void:
 
 
 func set_chisel(chisel) -> void:
-	print("[func_call]: set_chisel(", chisel, ")")
 	sculpture_block.curr_chisel = chisel
 
 

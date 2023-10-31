@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://ccnoddphba1d"]
+[gd_scene load_steps=5 format=3 uid="uid://ccnoddphba1d"]
 
 [ext_resource type="Script" path="res://game/game.gd" id="1_l0vog"]
+[ext_resource type="PackedScene" uid="uid://b5yntcaw7n7u6" path="res://classes/chisel/chisel.tscn" id="4_2dk7t"]
 [ext_resource type="PackedScene" uid="uid://b43byuaauvy65" path="res://gui/transitions/cinematic_transition.tscn" id="8_72qto"]
 [ext_resource type="AudioStream" uid="uid://pnjohquoawnn" path="res://assets/musics/main_menu_improvisation.ogg" id="9_ocbya"]
 
@@ -22,3 +23,6 @@ one_shot = true
 stream = ExtResource("9_ocbya")
 
 [node name="SoundStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="TestChisel" parent="." instance=ExtResource("4_2dk7t")]
+affected_blocks = Array[Vector2i]([Vector2i(0, 0), Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)])

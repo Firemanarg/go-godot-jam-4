@@ -39,15 +39,27 @@ func update() -> void:
 
 
 func _on_chisel_single_pixel_button_pressed() -> void:
-	chisel_selected.emit(chisel_single_pixel_button.get_node("Chisel"))
+	var chisel: Chisel = chisel_single_pixel_button.chisel
+	if not chisel:
+		print("[error]: no chisel defined to ", chisel_single_pixel_button)
+		return
+	chisel_selected.emit(chisel)
 	print("[button_pressed]: chisel_single_pixel_button_pressed")
 
 
 func _on_chisel_cross_pixel_button_pressed() -> void:
-	chisel_selected.emit(chisel_cross_pixel_button.get_node("Chisel"))
+	var chisel: Chisel = chisel_cross_pixel_button.chisel
+	if not chisel:
+		print("[error]: no chisel defined to ", chisel_cross_pixel_button)
+		return
+	chisel_selected.emit(chisel)
 	print("[button_pressed]: chisel_cross_pixel_button_pressed")
 
 
 func _on_chisel_2x2_square_pixel_button_pressed() -> void:
-	chisel_selected.emit(chisel_2x2_square_pixel_button.get_node("Chisel"))
+	var chisel: Chisel = chisel_2x2_square_pixel_button.chisel
+	if not chisel:
+		print("[error]: no chisel defined to ", chisel_2x2_square_pixel_button)
+		return
+	chisel_selected.emit(chisel)
 	print("[button_pressed]: chisel_2x2_square_pixel_button_pressed")
